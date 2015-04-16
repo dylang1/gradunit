@@ -1,0 +1,10 @@
+K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\obj\x86\Debug\GradedUnit.csprojResolveAssemblyReference.cache
+K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\GradedUnit.exe
+K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\GradedUnit.pdb
+K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\obj\x86\Debug\GradedUnit.exe
+K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\obj\x86\Debug\GradedUnit.pdb
+K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\Content\quartz4.xnb
+K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\Content\blank.xnb
+K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\Content\background.xnb
+K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\Content\gradient.xnb

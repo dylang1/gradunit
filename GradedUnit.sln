@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradedUnit", "GradedUnit\GradedUnit\GradedUnit.csproj", "{CE867D51-3EEC-464E-877B-712BBB64B69A}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "GradedUnitContent", "GradedUnit\GradedUnitContent\GradedUnitContent.contentproj", "{1A9E0AD6-8170-4BFD-A358-70E159F59904}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE867D51-3EEC-464E-877B-712BBB64B69A}.Debug|x86.ActiveCfg = Debug|x86
+		{CE867D51-3EEC-464E-877B-712BBB64B69A}.Debug|x86.Build.0 = Debug|x86
+		{CE867D51-3EEC-464E-877B-712BBB64B69A}.Release|x86.ActiveCfg = Release|x86
+		{CE867D51-3EEC-464E-877B-712BBB64B69A}.Release|x86.Build.0 = Release|x86
+		{1A9E0AD6-8170-4BFD-A358-70E159F59904}.Debug|x86.ActiveCfg = Debug|x86
+		{1A9E0AD6-8170-4BFD-A358-70E159F59904}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
