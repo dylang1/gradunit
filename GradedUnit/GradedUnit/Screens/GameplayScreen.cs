@@ -1,11 +1,3 @@
-#region File Description
-//-----------------------------------------------------------------------------
-// GameplayScreen.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
 
 #region Using Statements
 using System;
@@ -25,15 +17,17 @@ namespace GradedUnit
     /// </summary>
     class GameplayScreen : GameScreen
     {
-        #region Fields
+        #region Variables
 
         ContentManager content;
         SpriteFont gameFont;
-
+        Bat bat;
+        Rectangle ScreenBoundary;
         Vector2 playerPosition = new Vector2(100, 100);
         Vector2 enemyPosition = new Vector2(100, 100);
 
         Random random = new Random();
+
 
         float pauseAlpha;
 
@@ -49,7 +43,9 @@ namespace GradedUnit
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+            
         }
+
 
 
         /// <summary>
@@ -57,16 +53,19 @@ namespace GradedUnit
         /// </summary>
         public override void LoadContent()
         {
+            ScreenBoundary = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
             gameFont = content.Load<SpriteFont>("quartz4");
-
+            Texture2D battexture = content.Load<Texture2D>("bat");
+            bat = new Bat(battexture, ScreenBoundary);
+            bat.startPosP1();
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
             // while, giving you a chance to admire the beautiful loading screen.
             Thread.Sleep(1000);
-
+            
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
             // it should not try to catch up.
@@ -128,6 +127,8 @@ namespace GradedUnit
         /// <summary>
         /// Lets the game respond to player input. Unlike the Update method,
         /// this will only be called when the gameplay screen is active.
+        /// 
+        /// TODO fix movement logic 
         /// </summary>
         public override void HandleInput(InputState input)
         {
@@ -147,26 +148,35 @@ namespace GradedUnit
             }
             else
             {
-                // Otherwise move the player position.
-                Vector2 movement = Vector2.Zero;
+                //// Otherwise move the player position.
+                //Vector2 movement = Vector2.Zero;
 
-                if (keyboardState.IsKeyDown(Keys.Left))
-                    movement.X--;
+                //if (keyboardState.IsKeyDown(Keys.Left))
+                //    movement.X--;
 
-                if (keyboardState.IsKeyDown(Keys.Right))
-                    movement.X++;
+                //if (keyboardState.IsKeyDown(Keys.Right))
+                //    movement.X++;
 
-                if (keyboardState.IsKeyDown(Keys.Up))
-                    movement.Y--;
+                //if (keyboardState.IsKeyDown(Keys.Up))
+                //    movement.Y--;
 
-                if (keyboardState.IsKeyDown(Keys.Down))
-                    movement.Y++;
+                //if (keyboardState.IsKeyDown(Keys.Down))
+                //    movement.Y++;
 
 
-                if (movement.Length() > 1)
-                    movement.Normalize();
+                //if (movement.Length() > 1)
+                //    movement.Normalize();
 
-                playerPosition += movement * 2;
+                //playerPosition += movement * 2;
+
+                if(input.IsP1Right(ControllingPlayer))
+                {
+                    bat.MoveBatRight();
+                }
+                if(input.IsP1Left(ControllingPlayer))
+                {
+                    bat.MoveBatLeft();
+                }
             }
         }
 
@@ -186,7 +196,7 @@ namespace GradedUnit
             spriteBatch.Begin();
 
             spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
-
+            bat.Draw(spriteBatch);
             spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
                                    enemyPosition, Color.DarkRed);
 

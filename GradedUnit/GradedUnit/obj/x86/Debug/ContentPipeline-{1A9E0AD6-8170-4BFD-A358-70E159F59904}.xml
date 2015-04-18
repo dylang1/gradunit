@@ -7,7 +7,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>FontTextureProcessor</Processor>
       <Options>None</Options>
-      <Output>K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\Content\quartz4.xnb</Output>
+      <Output>D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\quartz4.xnb</Output>
       <Time>2015-04-16T21:58:12.4205192+01:00</Time>
     </Item>
     <Item>
@@ -16,7 +16,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\Content\blank.xnb</Output>
+      <Output>D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\blank.xnb</Output>
       <Time>2015-04-16T22:00:23.4760239+01:00</Time>
     </Item>
     <Item>
@@ -25,7 +25,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\Content\background.xnb</Output>
+      <Output>D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\background.xnb</Output>
       <Time>2015-04-16T22:00:58.3654515+01:00</Time>
     </Item>
     <Item>
@@ -34,8 +34,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\Content\gradient.xnb</Output>
+      <Output>D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\gradient.xnb</Output>
       <Time>2015-04-16T22:01:33.9756543+01:00</Time>
+    </Item>
+    <Item>
+      <Source>bat.png</Source>
+      <Name>bat</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\bat.xnb</Output>
+      <Time>2015-04-18T23:45:48.4695407+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -44,10 +53,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnitContent\</RootDirectory>
-      <LoggerRootDirectory>K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\</LoggerRootDirectory>
-      <IntermediateDirectory>K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>D:\Documents\GitHub\gradunit\GradedUnit\GradedUnitContent\</RootDirectory>
+      <LoggerRootDirectory>D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\</LoggerRootDirectory>
+      <IntermediateDirectory>D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

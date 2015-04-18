@@ -161,6 +161,50 @@ namespace GradedUnit
             return IsNewKeyPress(Keys.Escape, controllingPlayer, out playerIndex);
         }
 
+        //function to determine if player one has pressed the key ro go left 
+
+        public bool IsP1Left(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+            return IsNewKeyPress(Keys.A, controllingPlayer, out playerIndex);// todo implement ini file reading to change this keybinding 
+
+        }
+
+        //function to determine if player1 has pressed the key to go right 
+        public bool IsP1Right(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+                return IsNewKeyPress(Keys.D,controllingPlayer,out playerIndex); // todo implenent file reading to change this keybinding
+        }
+
+        //function to determine if player 2 has pressed the key to go left 
+        public bool IsP2left(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+            return IsNewKeyPress(Keys.Left, controllingPlayer, out playerIndex); // todo implenent file reading to change this keybinding
+        }
+
+        // fucntion to determine if player 2 has pressed the key to go right 
+       public bool IsP2Right(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+            return IsNewKeyPress(Keys.Right, controllingPlayer, out playerIndex); // todo implenent file reading to change this keybinding
+        }
+
+        // function to determine if playter 1 statr the game eg to launch the ball 
+        public bool IsP1Start(PlayerIndex? controllingPlayer)
+       {
+            PlayerIndex playerIndex;
+            return IsNewKeyPress(Keys.E, controllingPlayer, out playerIndex); // todo implenent file reading to change this keybinding
+       }
+
+        //function to determine if player 2 starts the game eg to launch the balle 
+        public bool IsP2Start(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+            return IsNewKeyPress(Keys.Up, controllingPlayer, out playerIndex); // todo implenent file reading to change this keybinding
+        }
+
 
         #endregion
     }

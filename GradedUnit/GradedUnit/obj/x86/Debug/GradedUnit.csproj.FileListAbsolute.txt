@@ -8,3 +8,14 @@ K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\Grade
 K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\Content\blank.xnb
 K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\Content\background.xnb
 K:\College Year 2\Graded Unit Project\Implementation\GradedUnit\GradedUnit\GradedUnit\bin\x86\Debug\Content\gradient.xnb
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\obj\x86\Debug\GradedUnit.csprojResolveAssemblyReference.cache
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\obj\x86\Debug\GradedUnit.exe
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\quartz4.xnb
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\blank.xnb
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\background.xnb
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\gradient.xnb
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\bat.xnb
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\GradedUnit.exe
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\GradedUnit.pdb
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\obj\x86\Debug\GradedUnit.pdb

@@ -7,5 +7,6 @@ namespace GradedUnit.Screens
 {
     class HighScoreScreen
     {
+        //HighScoreScreen();
     }
 }
