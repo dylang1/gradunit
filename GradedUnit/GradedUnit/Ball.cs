@@ -14,19 +14,11 @@ namespace GradedUnit
 {
     class Ball
     {
-
-        ContentManager Content;
-        //class to hold the structure and properties of the ball
-        private Texture2D texture; // holds the image of the ball 
-        private Vector2 pos; //holds the position of the ball 
-        private Vector2 orig; // holds the origin of the image aids in drawing of the image 
-        private float size; //sets the size used to scale the image when being drawn 
-        private Rectangle recta; // holds dimensions of the graphic 
-        private float rotation;//holds the rotation for the ball 
-        private Vector3 velocity; //holds the speed and direction of the ball 
-        private BoundingSphere bsph; //holds the bounding sphere for the object 
-        private Boolean visible; // holds if the object should be visible or not 
-        private float power;//
+        Vector2 motion;
+        Vector2 pos;
+        float speed = 3f;
+        Texture2D texture;
+        Rectangle boundary;
 #region Getters Setters 
         // getter for texture 
         public Texture2D getTexture()
@@ -131,26 +123,63 @@ namespace GradedUnit
         }
 #endregion
 
-        public Ball()
+        public Ball(Texture2D texture , Rectangle boundary)
         {
-            texture = Content.Load<Texture2D>("Ball");
-            pos.X = 0;
-            pos.Y = 0;
-            orig.X = texture.Width / 2;
-            orig.Y = texture.Height / 2;
-            size = 1f;
-
-            recta.Width = (int)(texture.Width * size);
-            recta.Height = (int)(texture.Height * size);
-            velocity.X = 0;
-            velocity.Y = 0;
-            rotation = 1f; 
-            power = 1f; 
-            //bsph = new BoundingSphere(this.pos, this.recta.Width / 2);
-
+            this.texture = texture;
+            this.boundary = boundary;
+        }
+         public void UpdatePos()
+        {
+            pos += motion *= speed;
+            CollisionCheck();
+        }
+        private void CollisionCheck()
+         {
+             if (pos.X < 0)
+             {
+                 pos.X = 0;
+                 motion.X *= -1;
+             }
+             if (pos.X + texture.Width > boundary.Width)
+             {
+                 pos.X = boundary.Width - texture.Width;
+                 motion.X *= -1;
+             }
+
+         }
+        // checks if the ball has left the bottom of the screen 
+        public bool BottomCheck()
+        {
+            if (pos.Y > boundary.Height)
+                return true;
+            return false;
         }
 
+        public bool TopCheck()
+        {
+            if (pos.Y == 0)
+                return true;
+            return false;
+        }
 
+        //checks if the ball hist the bat 
+        public void PaddleCollision(Rectangle batloc)
+        {
+            Rectangle ballloc = new Rectangle(
+            (int)pos.X,
+            (int)pos.Y,
+            texture.Width,
+            texture.Height);
+            if (batloc.Intersects(ballloc))
+            {
+                pos.Y = batloc.Y - texture.Height;
+                motion.Y *= -1;
+            }
+        }
 
+        public void draw(SpriteBatch spritebatch)
+        {
+            spritebatch.Draw(texture, pos, Color.White);
+        }
     }
 }

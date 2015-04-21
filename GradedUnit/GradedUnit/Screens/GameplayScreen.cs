@@ -21,10 +21,11 @@ namespace GradedUnit
 
         ContentManager content;
         SpriteFont gameFont;
-        Bat bat;
+        Bat P1bat;
         Rectangle ScreenBoundary;
         Vector2 playerPosition = new Vector2(100, 100);
         Vector2 enemyPosition = new Vector2(100, 100);
+        Ball ball; 
 
         Random random = new Random();
 
@@ -59,8 +60,8 @@ namespace GradedUnit
 
             gameFont = content.Load<SpriteFont>("quartz4");
             Texture2D battexture = content.Load<Texture2D>("bat");
-            bat = new Bat(battexture, ScreenBoundary);
-            bat.startPosP1();
+            P1bat = new Bat(battexture, ScreenBoundary);
+            P1bat.startPosP1();
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
             // while, giving you a chance to admire the beautiful loading screen.
@@ -148,34 +149,13 @@ namespace GradedUnit
             }
             else
             {
-                //// Otherwise move the player position.
-                //Vector2 movement = Vector2.Zero;
-
-                //if (keyboardState.IsKeyDown(Keys.Left))
-                //    movement.X--;
-
-                //if (keyboardState.IsKeyDown(Keys.Right))
-                //    movement.X++;
-
-                //if (keyboardState.IsKeyDown(Keys.Up))
-                //    movement.Y--;
-
-                //if (keyboardState.IsKeyDown(Keys.Down))
-                //    movement.Y++;
-
-
-                //if (movement.Length() > 1)
-                //    movement.Normalize();
-
-                //playerPosition += movement * 2;
-
-                if(input.IsP1Right(ControllingPlayer))
+                if(input.IsP1Right(/*ControllingPlayer*/) == true)
                 {
-                    bat.MoveBatRight();
+                    P1bat.MoveBatRight();
                 }
-                if(input.IsP1Left(ControllingPlayer))
+                if(input.IsP1Left(/*ControllingPlayer*/) == true)
                 {
-                    bat.MoveBatLeft();
+                    P1bat.MoveBatLeft();
                 }
             }
         }
@@ -196,7 +176,7 @@ namespace GradedUnit
             spriteBatch.Begin();
 
             spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
-            bat.Draw(spriteBatch);
+            P1bat.Draw(spriteBatch);
             spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
                                    enemyPosition, Color.DarkRed);
 
