@@ -30,3 +30,5 @@ G:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\
 G:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 G:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\obj\x86\Debug\GradedUnit.exe
 G:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\obj\x86\Debug\GradedUnit.pdb
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\ball.xnb
+D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\brick.xnb

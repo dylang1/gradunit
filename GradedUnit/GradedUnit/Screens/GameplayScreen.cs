@@ -25,8 +25,12 @@ namespace GradedUnit
         Rectangle ScreenBoundary;
         Vector2 playerPosition = new Vector2(100, 100);
         Vector2 enemyPosition = new Vector2(100, 100);
-        Ball ball; 
-
+        Ball ball;
+        int bricksWidth = 10;
+        int bricksHeight = 5;
+        Texture2D brickImage;
+        Bricks[,] bricks;
+        int lives = 3; //sets initial lives to 3 
         Random random = new Random();
 
 
@@ -58,10 +62,14 @@ namespace GradedUnit
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            gameFont = content.Load<SpriteFont>("quartz4");
-            Texture2D battexture = content.Load<Texture2D>("bat");
-            P1bat = new Bat(battexture, ScreenBoundary);
-            P1bat.startPosP1();
+            gameFont = content.Load<SpriteFont>("quartz4");// loads the font which will be used throughout the game 
+            Texture2D battexture = content.Load<Texture2D>("bat");// loads the texture of the batt 
+            Texture2D balltexture = content.Load<Texture2D>("ball"); // loads the texture of the ball 
+             brickImage = content.Load<Texture2D>("brick");//loads the texture of the brick 
+
+            P1bat = new Bat(battexture, ScreenBoundary);//creats a new bat object called P1bat
+            ball = new Ball(balltexture, ScreenBoundary);//creates a new ball object 
+            StartGame();
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
             // while, giving you a chance to admire the beautiful loading screen.
@@ -73,6 +81,41 @@ namespace GradedUnit
             ScreenManager.Game.ResetElapsedTime();
         }
 
+        private void StartGame()
+        {
+            P1bat.startPosP1(); //sets the starting position of the ball 
+            ball.StartPosBall(P1bat.GetBoundary());//sets starting pos of ball 
+
+            bricks = new Bricks[bricksWidth, bricksHeight];
+
+            for (int i = 0; i < bricksHeight; i++)
+            {
+                Color colour = Color.White;
+
+                switch(i)
+                {
+                    case 0:
+                        colour = Color.HotPink;
+                        break;
+                    case 1:
+                        colour = Color.Purple;
+                        break;
+                    case 2:
+                        colour = Color.MidnightBlue;
+                        break;
+                    case 3:
+                        colour = Color.Goldenrod;
+                        break;
+                    case 4:
+                        colour = Color.Green;
+                        break;
+                }
+                for (int x =0; x<bricksWidth; x++)
+                {
+                    bricks[x, i] = new Bricks(brickImage, new Rectangle(x * brickImage.Width, i * brickImage.Height, brickImage.Width, brickImage.Height), colour);
+                }
+            }
+        }
 
         /// <summary>
         /// Unload graphics content used by the game.
@@ -103,24 +146,20 @@ namespace GradedUnit
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
-
+            
             if (IsActive)
             {
-                // Apply some random jitter to make the enemy move around.
-                const float randomization = 10;
+                ball.UpdatePos();
+                ball.BatCollision(P1bat.GetBoundary());
+                if (ball.BottomCheck())
+                {
+                    lives -= 1;
+                }
 
-                enemyPosition.X += (float)(random.NextDouble() - 0.5) * randomization;
-                enemyPosition.Y += (float)(random.NextDouble() - 0.5) * randomization;
-
-                // Apply a stabilizing force to stop the enemy moving off the screen.
-                Vector2 targetPosition = new Vector2(
-                    ScreenManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2, 
-                    200);
-
-                enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
-
-                // TODO: this game isn't very fun! You could probably improve
-                // it by inserting something more interesting in this space :-)
+                if (ball.TopCheck())
+                {
+                    lives -= 1;
+                }
             }
         }
 
@@ -174,11 +213,11 @@ namespace GradedUnit
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             spriteBatch.Begin();
-
-            spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
+            foreach (Bricks brick in bricks)
+                brick.Draw(spriteBatch);
+            spriteBatch.DrawString(gameFont,lives.ToString(),new Vector2(0,0),Color.Blue);
             P1bat.Draw(spriteBatch);
-            spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
-                                   enemyPosition, Color.DarkRed);
+            ball.Draw(spriteBatch);
 
             spriteBatch.End();
 
