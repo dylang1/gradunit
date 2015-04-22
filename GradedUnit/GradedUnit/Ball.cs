@@ -16,9 +16,12 @@ namespace GradedUnit
     {
         Vector2 motion; //holds the motion for tha ball 
         Vector2 pos; // holds the position of the ball 
-        float speed = 3f; // holds the speed of the ball 
+        float speed = 1f; // holds the speed of the ball 
         Texture2D texture; // holds the texture of the ball 
-        Rectangle boundary;//holds the screenboundayy used to determine collisions and stuff 
+        Rectangle scrboundary;//holds the screenboundayy used to determine collisions and stuff 
+        Rectangle boundary;
+        const float initialSpeed = 1.01f;
+        bool collision;
         #region Getters Setters
         // getter for texture 
         public Texture2D getTexture()
@@ -33,13 +36,25 @@ namespace GradedUnit
         // getter for origin
         #endregion
         //constructor to create a new instance of ball 
-        public Ball(Texture2D texture, Rectangle boundary)
+        public Ball(Texture2D texture, Rectangle scrboundary)
         {
+            boundary = new Rectangle(0, 0, texture.Width, texture.Height);
             this.texture = texture;
-            this.boundary = boundary;
+            this.scrboundary = scrboundary;
+        }
+
+        public Rectangle Boundary
+        {
+            get
+            {
+                boundary.X = (int)pos.X;
+                boundary.Y = (int)pos.Y;
+                return boundary;
+            }
         }
         public void UpdatePos()
         {
+            collision = false;
             pos += motion *= speed;
             CollisionCheck();
         }
@@ -51,25 +66,30 @@ namespace GradedUnit
                 pos.X = 0;
                 motion.X *= -1;
             }
-            if (pos.X + texture.Width > boundary.Width)
+            if (pos.X + texture.Width > scrboundary.Width)
             {
-                pos.X = boundary.Width - texture.Width;
+                pos.X = scrboundary.Width - texture.Width;
                 motion.X *= -1;
             }
+            if (pos.Y < 0)
+            {
+                pos.Y = 0;
+                motion.Y *= -1;
+            }
 
 
         }
         // checks if the ball has left the bottom of the screen 
         public bool BottomCheck()
         {
-            if (pos.Y > boundary.Height)
+            if (pos.Y > scrboundary.Height)
                 return true;
             return false;
         }
         //checks if the ball has hit the top of the screen 
         public bool TopCheck()
         {
-            if (pos.Y == 0)
+            if (pos.Y < 0)
                 return true;
             return false;
         }
@@ -89,9 +109,20 @@ namespace GradedUnit
             }
         }
 
+        public void Deflection(Bricks brick)
+        {
+
+            if (!collision)
+            {
+                motion.Y *= -1;
+                collision = true;
+            }
+            
+        }
         public void StartPosBall(Rectangle batPosition)
         {
-            motion = new Vector2(0,0);
+            motion = new Vector2(1,-1);
+            speed = initialSpeed;
             pos.Y = batPosition.Y - texture.Height;
             pos.X = batPosition.X + (batPosition.Width - texture.Width) / 2;
         }

@@ -23,8 +23,6 @@ namespace GradedUnit
         SpriteFont gameFont;
         Bat P1bat;
         Rectangle ScreenBoundary;
-        Vector2 playerPosition = new Vector2(100, 100);
-        Vector2 enemyPosition = new Vector2(100, 100);
         Ball ball;
         int bricksWidth = 10;
         int bricksHeight = 5;
@@ -150,6 +148,10 @@ namespace GradedUnit
             if (IsActive)
             {
                 ball.UpdatePos();
+                foreach(Bricks brick in bricks)
+                {
+                    brick.CollisionCheck(ball);
+                }
                 ball.BatCollision(P1bat.GetBoundary());
                 if (ball.BottomCheck())
                 {
@@ -160,6 +162,7 @@ namespace GradedUnit
                 {
                     lives -= 1;
                 }
+
             }
         }
 

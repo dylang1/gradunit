@@ -26,7 +26,12 @@ namespace GradedUnit
             this.visible = true; 
         }
 
-
+        public void CollisionCheck(Ball ball)
+        {
+            if(visible && ball.Boundary.Intersects(position))
+            visible = false;
+            ball.Deflection(this);
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             if (visible)
