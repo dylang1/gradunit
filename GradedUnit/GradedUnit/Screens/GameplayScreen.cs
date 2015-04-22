@@ -37,6 +37,7 @@ namespace GradedUnit
         Texture2D brickImage;
         // creates a new array of bricks 
         Bricks[,] bricks;
+        int score = 0;
        
         int lives = 3; //sets initial lives to 3 
         // new random number generator 
@@ -76,13 +77,11 @@ namespace GradedUnit
             Texture2D balltexture = content.Load<Texture2D>("ball"); // loads the texture of the ball 
              brickImage = content.Load<Texture2D>("brick");//loads the texture of the brick 
 
+
             P1bat = new Bat(battexture, ScreenBoundary);//creats a new bat object called P1bat
             ball = new Ball(balltexture, ScreenBoundary);//creates a new ball object 
+            P2bat = new Bat(battexture, ScreenBoundary);//creates a new object called p2bat
             StartGame();
-            // A real game would probably have more content than this sample, so
-            // it would take longer to load. We simulate that by delaying for a
-            // while, giving you a chance to admire the beautiful loading screen.
-            Thread.Sleep(1000);
             
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
@@ -92,7 +91,8 @@ namespace GradedUnit
 
         private void StartGame()
         {
-            P1bat.startPosP1(); //sets the starting position of the ball 
+            P1bat.startPosP1(); //sets the starting position of the bat
+            P2bat.startPosP2();
             ball.StartPosBall(P1bat.GetBoundary());//sets starting pos of ball 
 
             bricks = new Bricks[bricksWidth, bricksHeight];
@@ -162,13 +162,13 @@ namespace GradedUnit
                 // checks the collision for each the bricks 
                 foreach(Bricks brick in bricks)
                 {
-                    brick.CollisionCheck(ball);
+                    score += brick.CollisionCheck(ball);
                 }
                 //checsk if the ball hits the bat 
                 ball.BatCollision(P1bat.GetBoundary());
+                ball.BatCollision(P2bat.GetBoundary());
                 //checsk fi the ball leaves the bottom of the screen if so remove lives by one 
                 if (ball.BottomCheck())
-
                 {
                     lives -= 1;
                 }
@@ -216,6 +216,11 @@ namespace GradedUnit
                 {
                     P1bat.MoveBatLeft();
                 }
+
+                if (input.IsP2left())
+                    P2bat.MoveBatLeft();
+                if (input.IsP2Right())
+                    P2bat.MoveBatRight();
             }
         }
 
@@ -235,7 +240,8 @@ namespace GradedUnit
             spriteBatch.Begin();
             foreach (Bricks brick in bricks)
                 brick.Draw(spriteBatch);
-            spriteBatch.DrawString(gameFont,lives.ToString(),new Vector2(0,0),Color.Blue);
+            spriteBatch.DrawString(gameFont,"lives :" + lives.ToString(),new Vector2(0,0),Color.Blue);
+            spriteBatch.DrawString(gameFont,"score : " + score.ToString(),new Vector2(300,200),Color.White);
             P1bat.Draw(spriteBatch);
             ball.Draw(spriteBatch);
 

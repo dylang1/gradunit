@@ -13,6 +13,7 @@ namespace GradedUnit
         Rectangle position;
         Color colour;
         bool visible;
+        int scorevalue;
 
         public Rectangle Position
         {
@@ -23,14 +24,20 @@ namespace GradedUnit
             this.texture = texture;
             this.position = position;
             this.colour = colour;
-            this.visible = true; 
+            this.visible = true;
+            this.scorevalue = 10;
         }
 
-        public void CollisionCheck(Ball ball)
+        public int CollisionCheck(Ball ball)
         {
-            if(visible && ball.Boundary.Intersects(position))
-            visible = false;
-            ball.Deflection(this);
+            this.scorevalue = 0;
+            if (visible && ball.Boundary.Intersects(position))
+            {
+                visible = false;
+                ball.Deflection(this);
+                return this.scorevalue;
+            }
+            return scorevalue;
         }
         public void Draw(SpriteBatch spriteBatch)
         {

@@ -7,7 +7,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>FontTextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\quartz4.xnb</Output>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\quartz4.xnb</Output>
       <Time>2015-04-22T02:07:01+01:00</Time>
     </Item>
     <Item>
@@ -16,7 +16,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\blank.xnb</Output>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\blank.xnb</Output>
       <Time>2015-04-22T02:07:01+01:00</Time>
     </Item>
     <Item>
@@ -25,7 +25,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\background.xnb</Output>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\background.xnb</Output>
       <Time>2015-04-22T02:07:01+01:00</Time>
     </Item>
     <Item>
@@ -34,7 +34,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\gradient.xnb</Output>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\gradient.xnb</Output>
       <Time>2015-04-22T02:07:01+01:00</Time>
     </Item>
     <Item>
@@ -43,7 +43,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\bat.xnb</Output>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\bat.xnb</Output>
       <Time>2015-04-22T02:07:01+01:00</Time>
     </Item>
     <Item>
@@ -52,7 +52,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\ball.xnb</Output>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\ball.xnb</Output>
       <Time>2015-04-22T02:07:01+01:00</Time>
     </Item>
     <Item>
@@ -61,7 +61,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\brick.xnb</Output>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\brick.xnb</Output>
       <Time>2015-04-22T02:07:01+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
@@ -70,10 +70,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnitContent\</RootDirectory>
-      <LoggerRootDirectory>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\</LoggerRootDirectory>
-      <IntermediateDirectory>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnitContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>E:\College Year 2\Graded Unit Project\Implementation\gradunit\GradedUnit\GradedUnitContent\</RootDirectory>
+      <LoggerRootDirectory>E:\College Year 2\Graded Unit Project\Implementation\gradunit\GradedUnit\GradedUnit\</LoggerRootDirectory>
+      <IntermediateDirectory>E:\College Year 2\Graded Unit Project\Implementation\gradunit\GradedUnit\GradedUnitContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>E:\College Year 2\Graded Unit Project\Implementation\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
