@@ -20,8 +20,11 @@ namespace GradedUnit
         #region Variables
 
         ContentManager content;
+
         SpriteFont gameFont;
+        //creates a bat object for player bats 
         Bat P1bat;
+        Bat P2bat; 
         Rectangle ScreenBoundary;
         Ball ball;
         int bricksWidth = 10;

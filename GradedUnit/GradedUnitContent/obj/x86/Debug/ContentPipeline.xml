@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>quartz4.png</Source>
+      <Name>quartz4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>FontTextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\quartz4.xnb</Output>
+      <Time>2015-04-22T02:07:01+01:00</Time>
+    </Item>
+    <Item>
+      <Source>blank.png</Source>
+      <Name>blank</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\blank.xnb</Output>
+      <Time>2015-04-22T02:07:01+01:00</Time>
+    </Item>
+    <Item>
+      <Source>background.jpg</Source>
+      <Name>background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\background.xnb</Output>
+      <Time>2015-04-22T02:07:01+01:00</Time>
+    </Item>
+    <Item>
+      <Source>gradient.png</Source>
+      <Name>gradient</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\gradient.xnb</Output>
+      <Time>2015-04-22T02:07:01+01:00</Time>
+    </Item>
+    <Item>
+      <Source>bat.png</Source>
+      <Name>bat</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\bat.xnb</Output>
+      <Time>2015-04-22T02:07:01+01:00</Time>
+    </Item>
+    <Item>
+      <Source>ball.png</Source>
+      <Name>ball</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\ball.xnb</Output>
+      <Time>2015-04-22T02:07:01+01:00</Time>
+    </Item>
+    <Item>
+      <Source>brick.png</Source>
+      <Name>brick</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\brick.xnb</Output>
+      <Time>2015-04-22T02:07:01+01:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnitContent\</RootDirectory>
+      <LoggerRootDirectory>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\</LoggerRootDirectory>
+      <IntermediateDirectory>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnitContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>E:\College Year 2\Graded Unit Project\Implementation\gradunit-master\GradedUnit\GradedUnit\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T13:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T13:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T13:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T13:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T13:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T13:41:18+01:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2015-03-04T18:22:24.2931709+00:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
