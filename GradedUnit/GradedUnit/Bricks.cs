@@ -33,6 +33,7 @@ namespace GradedUnit
             this.scorevalue = 0;
             if (visible && ball.Boundary.Intersects(position))
             {
+                scorevalue = 10;
                 visible = false;
                 ball.Deflection(this);
                 return this.scorevalue;

@@ -20,7 +20,7 @@ namespace GradedUnit
         Texture2D texture; // holds the texture of the ball 
         Rectangle scrboundary;//holds the screenboundayy used to determine collisions and stuff 
         Rectangle boundary;
-        const float initialSpeed = 1.01f;
+        const float initialSpeed = 5f;
         Random random = new Random();
         bool collision;
         #region Getters Setters
@@ -58,6 +58,7 @@ namespace GradedUnit
             collision = false;
             pos += (motion * speed);
             CollisionCheck();
+            speed += 0.01f;
         }
         //checks if the ball has collided with the walls 
         private void CollisionCheck()
@@ -77,9 +78,6 @@ namespace GradedUnit
                 pos.Y = 0;
                 motion.Y *= -1;
             }
-
-
-
         }
         // checks if the ball has left the bottom of the screen 
         public bool BottomCheck()
@@ -91,30 +89,32 @@ namespace GradedUnit
         //checks if the ball has hit the top of the screen 
         public bool TopCheck()
         {
-            if (pos.Y < 0)
+            if (pos.Y <= 0)
                 return true;
             return false;
         }
 
         //checks if the ball hist the bat 
-        public void BatCollision(Rectangle batloc)
+        public void BatCollision(Rectangle batloc,bool isP1)
         {
-            Rectangle ballloc = new Rectangle(
-            (int)pos.X,
-            (int)pos.Y,
-            texture.Width,
-            texture.Height);
-            if (batloc.Intersects(ballloc))
+            Rectangle ballloc = new Rectangle((int)pos.X,(int)pos.Y,texture.Width,texture.Height);
+            if (batloc.Intersects(ballloc) && isP1)
             {
                 pos.Y = batloc.Y - texture.Height;
                 motion.Y *= -1;
             }
+            if (batloc.Intersects(ballloc) && !isP1)
+            {
+                //pos.Y = batloc.Y - texture.Height;
+                motion.Y *= -1;
+            }
+            
         }
 
         public void Deflection(Bricks brick)
         {
 
-            if (!collision)
+            if (!collision )
             {
                 motion.Y *= -1;
                 collision = true;
@@ -123,12 +123,15 @@ namespace GradedUnit
         }
         public void StartPosBall(Rectangle batPosition)
         {
-            
-            motion = new Vector2(random.Next(1,5), -random.Next(1,5));
-            motion.Normalize();
+            motion = new Vector2(0, 0);
             speed = initialSpeed;
             pos.Y = batPosition.Y - texture.Height;
             pos.X = batPosition.X + (batPosition.Width - texture.Width) / 2;
+        }
+        public void StartMotion()
+        {
+            motion = new Vector2(random.Next(1, 5), -random.Next(1, 5));
+            motion.Normalize();
         }
         public void Draw(SpriteBatch spritebatch)
         {

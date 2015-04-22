@@ -121,7 +121,7 @@ namespace GradedUnit
                 }
                 for (int x =0; x<bricksWidth; x++)
                 {
-                    bricks[x, i] = new Bricks(brickImage, new Rectangle(x * brickImage.Width, i * brickImage.Height +50, brickImage.Width, brickImage.Height), colour);
+                    bricks[x, i] = new Bricks(brickImage, new Rectangle(x * brickImage.Width, i * brickImage.Height +100, brickImage.Width, brickImage.Height), colour);
                 }
             }
         }
@@ -169,8 +169,8 @@ namespace GradedUnit
                         score += brick.CollisionCheck(ball);
                     }
                     //checsk if the ball hits the bat 
-                    ball.BatCollision(P1bat.GetBoundary());
-                    ball.BatCollision(P2bat.GetBoundary());
+                    ball.BatCollision(P1bat.GetBoundary(),true);
+                    ball.BatCollision(P2bat.GetBoundary(),false);
                     //checsk fi the ball leaves the bottom of the screen if so remove lives by one 
                     if (ball.BottomCheck())
                     {
@@ -182,6 +182,7 @@ namespace GradedUnit
                     if (ball.TopCheck())
                     {
                         lives -= 1;
+                        ball.StartPosBall(P1bat.GetBoundary());
                     }
                 }
                 if (lives == 0)
@@ -231,6 +232,8 @@ namespace GradedUnit
                     P2bat.MoveBatLeft();
                 if (input.IsP2Right())
                     P2bat.MoveBatRight();
+                if (input.IsP1Start())
+                    ball.StartMotion();
             }
         }
 
@@ -242,7 +245,7 @@ namespace GradedUnit
         {
             // This game has a blue background. Why? Because!
             ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
-                                               Color.CornflowerBlue, 0, 0);
+                                               Color.White, 0, 0);
 
             // Our player and enemy are both actually just text strings.
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
@@ -260,6 +263,7 @@ namespace GradedUnit
 
             }
             P1bat.Draw(spriteBatch);
+            P2bat.Draw(spriteBatch);
             ball.Draw(spriteBatch);
 
             spriteBatch.End();

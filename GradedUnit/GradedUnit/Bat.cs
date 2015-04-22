@@ -16,14 +16,14 @@ namespace GradedUnit
         float speed = 10f;//holds the speed at which the bat will move at
         Texture2D texture; // holds the texture for the bat 
 
-        Rectangle boundary; // holds the boundary for the screen 
+        Rectangle scrBoundary; // holds the boundary for the screen 
 
 
         //constructor for creating a new bat 
         public Bat(Texture2D texture, Rectangle boundary)
         {
             this.texture = texture;
-            this.boundary = boundary;
+            this.scrBoundary = boundary;
         }
 
         // function to move the bat to the left 
@@ -54,9 +54,9 @@ namespace GradedUnit
             {
                 pos.X = 0; 
             }
-            if(pos.X + texture.Width > boundary.Width) // checks so the bat cant go off the right hand side of the screen 
+            if(pos.X + texture.Width > scrBoundary.Width) // checks so the bat cant go off the right hand side of the screen 
             {
-                pos.X = boundary.Width - texture.Width; // sets the position of the bat to 
+                pos.X = scrBoundary.Width - texture.Width; // sets the position of the bat to 
             }
         }
 
@@ -69,13 +69,14 @@ namespace GradedUnit
         //function to create the startgin position of player1 
         public void startPosP1()
         {
-            pos.X = (boundary.Width - texture.Width) / 2;// sets hte position to the midle of the screen 
-            pos.Y = (boundary.Height - texture.Height - 10); // sets the position ot be just aBOVE THE BOTTOM OF THE SCREEN 
+            pos.X = (scrBoundary.Width - texture.Width) / 2;// sets hte position to the midle of the screen 
+            pos.Y = (scrBoundary.Height - texture.Height - 10); // sets the position ot be just aBOVE THE BOTTOM OF THE SCREEN 
         }
 
         public void startPosP2()
         {
-            pos.X = (boundary.Width - texture.Width) / 2; // sets the position to the middle of the screen 
+            pos.X = (scrBoundary.Width - texture.Width) / 2; // sets the position to the middle of the screen 
+            pos.Y = (0 + texture.Width ); // sets the position tp just above the top of the screen 
         }
         //function to draw the bat 
         public void Draw(SpriteBatch spritebatch)
