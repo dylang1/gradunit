@@ -56,7 +56,7 @@ namespace GradedUnit
         public void UpdatePos()
         {
             collision = false;
-            pos += motion *= speed;
+            pos += (motion *= speed);
             CollisionCheck();
         }
         //checks if the ball has collided with the walls 
@@ -124,7 +124,7 @@ namespace GradedUnit
         public void StartPosBall(Rectangle batPosition)
         {
             
-            motion = new Vector2(random.Next(1,5), random.Next(1,5));
+            motion = new Vector2(random.Next(1,5), -random.Next(1,5));
             speed = initialSpeed;
             pos.Y = batPosition.Y - texture.Height;
             pos.X = batPosition.X + (batPosition.Width - texture.Width) / 2;
