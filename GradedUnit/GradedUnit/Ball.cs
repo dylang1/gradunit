@@ -21,6 +21,7 @@ namespace GradedUnit
         Rectangle scrboundary;//holds the screenboundayy used to determine collisions and stuff 
         Rectangle boundary;
         const float initialSpeed = 1.01f;
+        Random random = new Random();
         bool collision;
         #region Getters Setters
         // getter for texture 
@@ -75,7 +76,8 @@ namespace GradedUnit
             {
                 pos.Y = 0;
                 motion.Y *= -1;
-            }
+            }
+
 
 
         }
@@ -121,7 +123,8 @@ namespace GradedUnit
         }
         public void StartPosBall(Rectangle batPosition)
         {
-            motion = new Vector2(1,-1);
+            
+            motion = new Vector2(random.Next(1,5), random.Next(1,5));
             speed = initialSpeed;
             pos.Y = batPosition.Y - texture.Height;
             pos.X = batPosition.X + (batPosition.Width - texture.Width) / 2;

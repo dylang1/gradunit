@@ -20,18 +20,26 @@ namespace GradedUnit
         #region Variables
 
         ContentManager content;
-
+        // the font that the game will use 
         SpriteFont gameFont;
         //creates a bat object for player bats 
         Bat P1bat;
         Bat P2bat; 
+        //sets the screen boundary so that we can check if the ball or batt hits the sied of the screen
         Rectangle ScreenBoundary;
+        //creates a new Ball 
         Ball ball;
+        // how many bricks wide will be displayed 
         int bricksWidth = 10;
+        // how many bricks high will be displayed 
         int bricksHeight = 5;
+        // texture for the bricks 
         Texture2D brickImage;
+        // creates a new array of bricks 
         Bricks[,] bricks;
+       
         int lives = 3; //sets initial lives to 3 
+        // new random number generator 
         Random random = new Random();
 
 
@@ -147,20 +155,24 @@ namespace GradedUnit
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
-            
+            // if the screen is active 
             if (IsActive)
             {
                 ball.UpdatePos();
+                // checks the collision for each the bricks 
                 foreach(Bricks brick in bricks)
                 {
                     brick.CollisionCheck(ball);
                 }
+                //checsk if the ball hits the bat 
                 ball.BatCollision(P1bat.GetBoundary());
+                //checsk fi the ball leaves the bottom of the screen if so remove lives by one 
                 if (ball.BottomCheck())
+
                 {
                     lives -= 1;
                 }
-
+                //checks if the ball leave the top of the screen if so remove lives by one 
                 if (ball.TopCheck())
                 {
                     lives -= 1;
@@ -187,17 +199,19 @@ namespace GradedUnit
             KeyboardState keyboardState = input.CurrentKeyboardStates[playerIndex];
 
 
-
+            //aslong as the game isnt paused 
             if (input.IsPauseGame(ControllingPlayer))
             {
                 ScreenManager.AddScreen(new PauseMenuScreen(), ControllingPlayer);
             }
             else
             {
+                // if the key for p1 to move right is pressed move player one right
                 if(input.IsP1Right(/*ControllingPlayer*/) == true)
                 {
                     P1bat.MoveBatRight();
                 }
+                // if the key for player 1 to move left is pressed move player one left 
                 if(input.IsP1Left(/*ControllingPlayer*/) == true)
                 {
                     P1bat.MoveBatLeft();
