@@ -22,19 +22,24 @@ namespace GradedUnit
     {
         #region Fields
 
-        MenuEntry ungulateMenuEntry;
-        MenuEntry languageMenuEntry;
-        MenuEntry frobnicateMenuEntry;
-        MenuEntry elfMenuEntry;
+        MenuEntry p1KeyRight;
+        MenuEntry p1KeyLeft;
+        MenuEntry p1KeyLaunch;
+        MenuEntry p1Colour;
+        MenuEntry p2KeyRight;
+        MenuEntry p2KeyLeft;
+        MenuEntry p2KeyLaunch;
+        MenuEntry p2Colour;
 
-        enum Ungulate
-        {
-            BactrianCamel,
-            Dromedary,
-            Llama,
+        enum Colour
+        {   
+            Red,
+            Blue,
+            Green,
+            Pink
         }
 
-        static Ungulate currentUngulate = Ungulate.Dromedary;
+        static Colour p1Colour = Colour.Red ;
 
         static string[] languages = { "C#", "French", "Deoxyribonucleic acid" };
         static int currentLanguage = 0;
@@ -55,10 +60,15 @@ namespace GradedUnit
             : base("Options")
         {
             // Create our menu entries.
-            ungulateMenuEntry = new MenuEntry(string.Empty);
-            languageMenuEntry = new MenuEntry(string.Empty);
-            frobnicateMenuEntry = new MenuEntry(string.Empty);
-            elfMenuEntry = new MenuEntry(string.Empty);
+            p1KeyRight = new MenuEntry(string.Empty);
+            p1KeyLeft = new MenuEntry(string.Empty);
+            p1KeyLaunch = new MenuEntry(string.Empty);
+            p1Colour = new MenuEntry(string.Empty);
+            p2KeyRight = new MenuEntry(string.Empty);
+            p2KeyLeft = new MenuEntry(string.Empty);
+            p2KeyLaunch = new MenuEntry(string.Empty);
+            p2Colour = new MenuEntry(string.Empty);
+
 
             SetMenuEntryText();
 
@@ -66,15 +76,14 @@ namespace GradedUnit
 
             // Hook up menu event handlers.
             ungulateMenuEntry.Selected += UngulateMenuEntrySelected;
-            languageMenuEntry.Selected += LanguageMenuEntrySelected;
-            frobnicateMenuEntry.Selected += FrobnicateMenuEntrySelected;
-            elfMenuEntry.Selected += ElfMenuEntrySelected;
+            p1KeyLeft.Selected += p1KeyLeftSelected;
+            p1KeyLaunch.Selected += FrobnicateMenuEntrySelected;
             back.Selected += OnCancel;
             
             // Add entries to the menu.
             MenuEntries.Add(ungulateMenuEntry);
-            MenuEntries.Add(languageMenuEntry);
-            MenuEntries.Add(frobnicateMenuEntry);
+            MenuEntries.Add(p1KeyLeft);
+            MenuEntries.Add(p1KeyLaunch);
             MenuEntries.Add(elfMenuEntry);
             MenuEntries.Add(back);
         }
@@ -85,9 +94,10 @@ namespace GradedUnit
         /// </summary>
         void SetMenuEntryText()
         {
-            ungulateMenuEntry.Text = "Preferred ungulate: " + currentUngulate;
-            languageMenuEntry.Text = "Language: " + languages[currentLanguage];
-            frobnicateMenuEntry.Text = "Frobnicate: " + (frobnicate ? "on" : "off");
+            p1KeyRight.Text = "Right Key" + languages[currentLanguage];
+            p1KeyLeft.Text = "Left Key" + languages[currentLanguage];
+            p1Colour.Text = "Colour " + p1Colour; 
+            p1KeyLaunch.Text = "Launch Key" + (frobnicate ? "on" : "off");
             elfMenuEntry.Text = "elf: " + elf;
         }
 

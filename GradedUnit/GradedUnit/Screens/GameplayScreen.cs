@@ -121,7 +121,7 @@ namespace GradedUnit
                 }
                 for (int x =0; x<bricksWidth; x++)
                 {
-                    bricks[x, i] = new Bricks(brickImage, new Rectangle(x * brickImage.Width, i * brickImage.Height, brickImage.Width, brickImage.Height), colour);
+                    bricks[x, i] = new Bricks(brickImage, new Rectangle(x * brickImage.Width, i * brickImage.Height +50, brickImage.Width, brickImage.Height), colour);
                 }
             }
         }
@@ -155,29 +155,39 @@ namespace GradedUnit
                 pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
             else
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
+          
             // if the screen is active 
+            
             if (IsActive)
             {
-                ball.UpdatePos();
-                // checks the collision for each the bricks 
-                foreach(Bricks brick in bricks)
+                if (lives != 0)
                 {
-                    score += brick.CollisionCheck(ball);
-                }
-                //checsk if the ball hits the bat 
-                ball.BatCollision(P1bat.GetBoundary());
-                ball.BatCollision(P2bat.GetBoundary());
-                //checsk fi the ball leaves the bottom of the screen if so remove lives by one 
-                if (ball.BottomCheck())
-                {
-                    lives -= 1;
-                }
-                //checks if the ball leave the top of the screen if so remove lives by one 
-                if (ball.TopCheck())
-                {
-                    lives -= 1;
-                }
+                    ball.UpdatePos();
+                    // checks the collision for each the bricks 
+                    foreach (Bricks brick in bricks)
+                    {
+                        score += brick.CollisionCheck(ball);
+                    }
+                    //checsk if the ball hits the bat 
+                    ball.BatCollision(P1bat.GetBoundary());
+                    ball.BatCollision(P2bat.GetBoundary());
+                    //checsk fi the ball leaves the bottom of the screen if so remove lives by one 
+                    if (ball.BottomCheck())
+                    {
+                        lives -= 1;
+                        ball.StartPosBall(P1bat.GetBoundary());
 
+                    }
+                    //checks if the ball leave the top of the screen if so remove lives by one 
+                    if (ball.TopCheck())
+                    {
+                        lives -= 1;
+                    }
+                }
+                if (lives == 0)
+                {
+                    ball.StartPosBall(P1bat.GetBoundary());
+                }
             }
         }
 
@@ -242,6 +252,13 @@ namespace GradedUnit
                 brick.Draw(spriteBatch);
             spriteBatch.DrawString(gameFont,"lives :" + lives.ToString(),new Vector2(0,0),Color.Blue);
             spriteBatch.DrawString(gameFont,"score : " + score.ToString(),new Vector2(300,200),Color.White);
+            if (lives == 0)
+            {
+                spriteBatch.DrawString(gameFont, "GAME OVER", new Vector2(255, 300), Color.HotPink, MathHelper.ToRadians(20), new Vector2(0, 0), 5f, SpriteEffects.None, 0);
+                spriteBatch.DrawString(gameFont, "Score: " + score, new Vector2(300, 500), Color.HotPink, MathHelper.ToRadians(20), new Vector2(0, 0), 2.5f, SpriteEffects.None, 0);
+
+
+            }
             P1bat.Draw(spriteBatch);
             ball.Draw(spriteBatch);
 
