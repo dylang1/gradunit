@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ball.cs" />
+    <Compile Include="DbConn.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameScreen.cs" />
     <Compile Include="InputState.cs" />

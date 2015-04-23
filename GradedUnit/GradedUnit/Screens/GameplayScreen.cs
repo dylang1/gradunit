@@ -37,6 +37,7 @@ namespace GradedUnit
         Texture2D brickImage;
         // creates a new array of bricks 
         Bricks[,] bricks;
+        DbConn dbConn;
         int score = 0;
 
         string gamemode = "CoOp";
@@ -72,6 +73,8 @@ namespace GradedUnit
             ScreenBoundary = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
+            dbConn = new DbConn();
+            dbConn.loadDb(gamemode);
 
             gameFont = content.Load<SpriteFont>("quartz4");// loads the font which will be used throughout the game 
             Texture2D battexture = content.Load<Texture2D>("bat");// loads the texture of the batt 
@@ -189,6 +192,7 @@ namespace GradedUnit
                 if (lives == 0)
                 {
                     ball.StartPosBall(P1bat.GetBoundary());
+                    dbConn.addtoDB(gamemode,score);
                 }
             }
         }
