@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Content;
 using System.Diagnostics;
 namespace GradedUnit
 {
-    class DbConn
+ class DbConn
     {
 
         DataRowCollection dra;
@@ -79,7 +79,7 @@ namespace GradedUnit
         {
 
         }
-        public void addtoDB(string gamemode, int score)
+        public void addtoDB(string gamemode, int score,String Name)
         {
             try
             {
@@ -101,6 +101,10 @@ namespace GradedUnit
             Cmd.Parameters.AddWithValue("@Score", score);
             Cmd.Parameters.AddWithValue("@Mode", gamemode);
             Cmd.ExecuteNonQuery();
+            Cmd.CommandText = "INSERT INTO Player(Name) VALUES(@Name);";
+            Cmd.Parameters.AddWithValue("@Name", Name);
+            Cmd.ExecuteNonQuery();
+
             }
         //    try
           //  {
@@ -118,6 +122,43 @@ namespace GradedUnit
                 con.Close();
 
 
+        }
+        public void addNametoDb(string Name)
+        {
+            try
+            {
+                con = new OleDbConnection(connectionString);
+                con.Open();
+            }
+            catch (Exception ex)
+            {
+                // MessageBoxScreen message = new MessageBoxScreen("Error: Failed to create a database connection. \n{0}" + ex.Message, true);
+                return;
+            }
+            using (con)
+            {
+
+
+                OleDbCommand Cmd = new OleDbCommand();//("INSERT INTO HighScores(Score,ModeType) VALUES(@Score,@Mode);", con);
+                Cmd.Connection = con;
+                Cmd.CommandText = "INSERT INTO Player(Name) VALUES(@Score);";
+                Cmd.Parameters.AddWithValue("@Name", Name);
+                Cmd.ExecuteNonQuery();
+            }
+            //    try
+            //  {
+
+            Debug.WriteLine("addedStuff" + Name);
+
+            //}
+            //catch (OleDbException ex)
+            //{
+            //  Debug.WriteLine(ex.Message);
+            //MessageBoxScreen message = new MessageBoxScreen("Error: Failed to add Data. \n{0}" + ex.Message, true);
+            //MessageBox.Show(ex.Message);
+            //}
+            //finally { con.Close(); }
+            con.Close();
         }
     }
 }

@@ -33,17 +33,19 @@ namespace GradedUnit
         int bricksWidth = 15;
         // how many bricks high will be displayed 
         int bricksHeight = 5;
+        TextBox textBox;
         // texture for the bricks 
         Texture2D brickImage;
         // creates a new array of bricks 
         Bricks[,] bricks;
         DbConn dbConn;
         int score = 0;
-
+        string userinput;
         string gamemode = "CoOp";
         int lives = 1; //sets initial lives to 3 todo change this back 
         // new random number generator 
         Random random = new Random();
+        bool isWritten = false; 
 
 
         float pauseAlpha;
@@ -80,8 +82,6 @@ namespace GradedUnit
             Texture2D battexture = content.Load<Texture2D>("bat");// loads the texture of the batt 
             Texture2D balltexture = content.Load<Texture2D>("ball"); // loads the texture of the ball 
              brickImage = content.Load<Texture2D>("brick");//loads the texture of the brick 
-
-
             P1bat = new Bat(battexture, ScreenBoundary);//creats a new bat object called P1bat
             ball = new Ball(balltexture, ScreenBoundary);//creates a new ball object 
             P2bat = new Bat(battexture, ScreenBoundary);//creates a new object called p2bat
@@ -95,6 +95,7 @@ namespace GradedUnit
 
         private void StartGame()
         {
+            isWritten = false;
             P1bat.startPosP1(); //sets the starting position of the bat
             P2bat.startPosP2();
             ball.StartPosBall(P1bat.GetBoundary());//sets starting pos of ball 
@@ -191,8 +192,14 @@ namespace GradedUnit
                 }
                 if (lives == 0)
                 {
-                    ball.StartPosBall(P1bat.GetBoundary());
-                    dbConn.addtoDB(gamemode,score);
+                    if (!isWritten)
+                    {
+                        ball.StartPosBall(P1bat.GetBoundary());
+                        userinput = Microsoft.VisualBasic.Interaction.InputBox("Name", "Please Enter Your Name", "AAAAA");
+                        dbConn.addtoDB(gamemode, score,userinput);
+                        isWritten = true; 
+
+                    }
                 }
             }
         }

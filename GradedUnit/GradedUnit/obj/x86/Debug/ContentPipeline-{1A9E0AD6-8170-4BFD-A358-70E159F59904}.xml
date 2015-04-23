@@ -64,6 +64,15 @@
       <Output>D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\brick.xnb</Output>
       <Time>2015-04-21T19:42:14.9233558+01:00</Time>
     </Item>
+    <Item>
+      <Source>textbox.png</Source>
+      <Name>textbox</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Documents\GitHub\gradunit\GradedUnit\GradedUnit\bin\x86\Debug\Content\textbox.xnb</Output>
+      <Time>2015-04-24T00:01:20.4035191+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{1A9E0AD6-8170-4BFD-A358-70E159F59904}</ContentProjectGUID>
