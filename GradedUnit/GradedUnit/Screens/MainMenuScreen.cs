@@ -29,19 +29,19 @@ namespace GradedUnit
         {
             // Create our menu entries.
             MenuEntry playGameMenuEntry = new MenuEntry("Play Game");
-            //MenuEntry highScoreMenuEntry = new MenuEntry("High Scores");
+            MenuEntry highScoreMenuEntry = new MenuEntry("High Scores");
             MenuEntry optionsMenuEntry = new MenuEntry("Options");
             MenuEntry exitMenuEntry = new MenuEntry("Exit");
 
             // Hook up menu event handlers.
             playGameMenuEntry.Selected += PlayGameMenuEntrySelected;
-            //highScoreMenuEntry.Selected += HighScoreMenuEntrySelected;
+            highScoreMenuEntry.Selected += HighScoreMenuEntrySelected;
             optionsMenuEntry.Selected += OptionsMenuEntrySelected;
             exitMenuEntry.Selected += OnCancel;
 
             // Add entries to the menu.
             MenuEntries.Add(playGameMenuEntry);
-            //MenuEntries.Add(highScoreMenuEntry);
+            MenuEntries.Add(highScoreMenuEntry);
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
         }
@@ -70,10 +70,10 @@ namespace GradedUnit
             //ScreenManager.AddScreen(new OptionsMenuScreen(), e.PlayerIndex);
         }
 
-        //void HighScoreMenuEntrySelected(object sender, PlayerIndexEventArgs e)
-        //{
-        //    ScreenManager.AddScreen(new HighScoreScreen(), e.PlayerIndex);
-        //}
+        void HighScoreMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        {
+            ScreenManager.AddScreen(new HighScoreScreen(), e.PlayerIndex);
+        }
         /// <summary>
         /// When the user cancels the main menu, ask if they want to exit the sample.
         /// </summary>
@@ -88,8 +88,13 @@ namespace GradedUnit
             ScreenManager.AddScreen(confirmExitMessageBox, playerIndex);
         }
 
-
-        /// <summary>
+      //  protected override void OnCancel(string message, PlayerIndex playerIndex)
+      //  {
+       //     MessageBoxScreen confirmExitMessageBox = new MessageBoxScreen(message);
+       //     confirmExitMessageBox.Accepted += ConfirmExitMessageBoxAccepted;
+       //     ScreenManager.AddScreen(confirmExitMessageBox, playerIndex);
+       // }
+            /// <summary>
         /// Event handler for when the user selects ok on the "are you sure
         /// you want to exit" message box.
         /// </summary>
