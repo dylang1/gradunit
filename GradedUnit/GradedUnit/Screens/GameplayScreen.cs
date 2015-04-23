@@ -254,8 +254,8 @@ namespace GradedUnit
             spriteBatch.Begin();
             foreach (Bricks brick in bricks)
                 brick.Draw(spriteBatch);
-            spriteBatch.DrawString(gameFont,"lives :" + lives.ToString(),new Vector2(0,0),Color.Blue);
-            spriteBatch.DrawString(gameFont,"score : " + score.ToString(),new Vector2(300,200),Color.White);
+            spriteBatch.DrawString(gameFont,"Lives: " + lives.ToString(),new Vector2(10,0),Color.Blue);
+            spriteBatch.DrawString(gameFont,"Score: " + score.ToString(),new Vector2(170,0),Color.Blue);
             if (lives == 0)
             {
                 spriteBatch.DrawString(gameFont, "GAME OVER", new Vector2(255, 300), Color.HotPink, MathHelper.ToRadians(0), new Vector2(0, 0), 3.5f, SpriteEffects.None, 0);
