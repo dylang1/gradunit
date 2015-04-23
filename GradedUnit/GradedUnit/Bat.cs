@@ -76,7 +76,7 @@ namespace GradedUnit
         public void startPosP2()
         {
             pos.X = (scrBoundary.Width - texture.Width) / 2; // sets the position to the middle of the screen 
-            pos.Y = (0 + texture.Width ); // sets the position tp just above the top of the screen 
+            pos.Y = (40); // sets the position tp just above the top of the screen 
         }
         //function to draw the bat 
         public void Draw(SpriteBatch spritebatch)

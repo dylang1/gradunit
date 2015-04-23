@@ -30,7 +30,7 @@ namespace GradedUnit
         //creates a new Ball 
         Ball ball;
         // how many bricks wide will be displayed 
-        int bricksWidth = 10;
+        int bricksWidth = 15;
         // how many bricks high will be displayed 
         int bricksHeight = 5;
         // texture for the bricks 
@@ -38,8 +38,9 @@ namespace GradedUnit
         // creates a new array of bricks 
         Bricks[,] bricks;
         int score = 0;
-       
-        int lives = 3; //sets initial lives to 3 
+
+        string gamemode = "CoOp";
+        int lives = 3; //sets initial lives to 3 todo change this back 
         // new random number generator 
         Random random = new Random();
 
@@ -121,7 +122,7 @@ namespace GradedUnit
                 }
                 for (int x =0; x<bricksWidth; x++)
                 {
-                    bricks[x, i] = new Bricks(brickImage, new Rectangle(x * brickImage.Width, i * brickImage.Height +100, brickImage.Width, brickImage.Height), colour);
+                    bricks[x, i] = new Bricks(brickImage, new Rectangle(x * brickImage.Width, i * brickImage.Height +300, brickImage.Width, brickImage.Height), colour);
                 }
             }
         }
@@ -257,8 +258,8 @@ namespace GradedUnit
             spriteBatch.DrawString(gameFont,"score : " + score.ToString(),new Vector2(300,200),Color.White);
             if (lives == 0)
             {
-                spriteBatch.DrawString(gameFont, "GAME OVER", new Vector2(255, 300), Color.HotPink, MathHelper.ToRadians(20), new Vector2(0, 0), 5f, SpriteEffects.None, 0);
-                spriteBatch.DrawString(gameFont, "Score: " + score, new Vector2(300, 500), Color.HotPink, MathHelper.ToRadians(20), new Vector2(0, 0), 2.5f, SpriteEffects.None, 0);
+                spriteBatch.DrawString(gameFont, "GAME OVER", new Vector2(255, 300), Color.HotPink, MathHelper.ToRadians(0), new Vector2(0, 0), 3.5f, SpriteEffects.None, 0);
+                spriteBatch.DrawString(gameFont, "Score: " + score, new Vector2(255, 400), Color.HotPink, MathHelper.ToRadians(0), new Vector2(0, 0), 3.5f, SpriteEffects.None, 0);
 
 
             }
