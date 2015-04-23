@@ -195,7 +195,7 @@ namespace GradedUnit
                     if (!isWritten)
                     {
                         ball.StartPosBall(P1bat.GetBoundary());
-                        userinput = Microsoft.VisualBasic.Interaction.InputBox("Name", "Please Enter Your Name", "AAAAA");
+                        userinput = Microsoft.VisualBasic.Interaction.InputBox("Name", "Please Enter Your Name", "AAAAA").ToString();
                         dbConn.addtoDB(gamemode,score,userinput);
                         isWritten = true; 
 
