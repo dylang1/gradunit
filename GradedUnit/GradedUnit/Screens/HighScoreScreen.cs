@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data.OleDb;
-using System.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,57 +12,65 @@ namespace GradedUnit
     class HighScoreScreen : MenuScreen 
     {
 
+        DbConn dbConn;
+        MenuEntry dbSelectMenuEntry;
+        int rowsrodraw = 0;
+        int maxrows = 20;
 
-
-        string name = "";
-        string score= "";
-        string mode = "" ;
-        int inc = 1;
+        string[] dboptions = { "CoOp", "Comp " };
         
 
-
+        enum Options
+        {
+            Coop,
+            Comp,
+        }
+        static Options currentOption = Options.Coop;
         public HighScoreScreen() : base("HighScores")
         {
-            loadDb();
+            string coopString = "CoOp";
+            dbSelectMenuEntry = new MenuEntry(string.Empty);
+            dbConn = new DbConn();
+            SetMenuEntryText();
+            dbSelectMenuEntry.Selected += DBSelect;
+            MenuEntries.Add(dbSelectMenuEntry);
+            // cooop load 
+            dbConn.loadDb(coopString);
+            ////CompLoad
+            //loadDb(compString);
             //Draw();
         }
-        public void loadDb()
+
+        void SetMenuEntryText()
         {
-            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D:/Documents/GitHub/gradunit/GradedUnit/HighScores.mdb";
-            string strSelect = "SELECT HighScores.Score, HighScores.ModeType, Player.Name FROM (HighScores INNER JOIN Player ON HighScores.[user id] = Player.ID AND HighScores.[user id] = Player.ID)ORDER BY HighScores.Score DESC, Player.Name";
-
-        
-
-            DataSet ds = new DataSet();
-            OleDbConnection con = null;
-            try
+            dbSelectMenuEntry.Text = "Mode:" + currentOption;
+        } 
+        void DBSelect(object sender, PlayerIndexEventArgs e)
+        {
+            currentOption++;
+            if (currentOption > Options.Comp)
             {
-                con = new OleDbConnection(connectionString);
+                currentOption = 0; 
             }
-            catch (Exception ex)
+            if (currentOption == Options.Coop)
             {
-                MessageBoxScreen message = new MessageBoxScreen("Error: Failed to create a database connection. \n{0}" + ex.Message, true);
-                return;
+
+                rowsrodraw = 0;
+                string CoOp = "CoOp";
+               dbConn.loadDb(CoOp);
+               rowsrodraw = dbConn.checkRows();
             }
-            try
+            else
             {
-                OleDbCommand accessCmd = new OleDbCommand(strSelect, con);
-                OleDbDataAdapter dataAdapter = new OleDbDataAdapter(accessCmd);
-                con.Open();
-                dataAdapter.Fill(ds,"HighScores");
+                rowsrodraw = 0; 
+                string comp = "Comp";
+                dbConn.loadDb(comp);
+                rowsrodraw = dbConn.checkRows();
             }
-            catch (Exception ex)
-            { MessageBoxScreen message = new MessageBoxScreen("Error: Failed to retrieve the data . \n{0}" + ex.Message, true);}
-            finally{ con.Close();}
 
-            //todo add in for loop to increase [inc] to loop through each row upto say a max of x ammount 
-            DataRow dRow = ds.Tables["HighScores"].Rows[inc];
-            score = dRow.ItemArray.GetValue(0).ToString();
-            mode = dRow.ItemArray.GetValue(1).ToString();
-            name = dRow.ItemArray.GetValue(2).ToString();
-           
-
+            SetMenuEntryText();
         }
+        
 
         public override void Draw(GameTime gameTime)
         {
@@ -72,13 +78,21 @@ namespace GradedUnit
             SpriteBatch sBatch = ScreenManager.SpriteBatch;
             SpriteFont font = ScreenManager.Font;
             sBatch.Begin();
-            sBatch.DrawString(font, score, new Vector2(250, 100), Color.White);
-            sBatch.DrawString(font, name, new Vector2(0, 100), Color.White);
-            sBatch.DrawString(font, mode, new Vector2(500, 100), Color.White);
+            sBatch.DrawString(font, "Mode; " + currentOption, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 10), Color.White);
+            int i = 1;
+            int count = 0;
+            rowsrodraw = dbConn.checkRows();
+            while( i <= rowsrodraw && i <= maxrows )
+            {
+                dbConn.Draw(font,sBatch,count);
+                i++;
+             
+           }
             sBatch.End();
         }
 
-
+        
+     
         //HighScoreScreen();
     }
 }

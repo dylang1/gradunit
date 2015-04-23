@@ -54,18 +54,13 @@ namespace GradedUnit
                       //todo add in for loop to increase [inc] to loop through each row upto say a max of x ammount 
 
         }
-        public int testdbthing()
+        public int checkRows()
         {
             rowsrodraw = 1;
-            
+
             rowsrodraw = ds.Tables["HighScores"].Rows.Count;
 
             return rowsrodraw;
-        }
-        public DataRowCollection test2()
-        {
-            dra = ds.Tables["HighScores"].Rows;
-            return dra;
         }
 
         public void Draw(SpriteFont font,SpriteBatch sBatch,int count )
@@ -96,24 +91,31 @@ namespace GradedUnit
                // MessageBoxScreen message = new MessageBoxScreen("Error: Failed to create a database connection. \n{0}" + ex.Message, true);
                 return;
             }
-
-            OleDbCommand Cmd = new OleDbCommand("INSERT INTO HighScores(Score,Mode)", con);
-            Cmd.Parameters.Add("@Score", OleDbType.VarNumeric, 20).Value = score;
-            Cmd.Parameters.Add("@Mode", OleDbType.VarWChar, 20).Value = gamemode;
-
-            try
+            using(con)
             {
-                Cmd.ExecuteNonQuery();
-                MessageBoxScreen message = new MessageBoxScreen("Added Stuff", true);
 
+            
+            OleDbCommand Cmd = new OleDbCommand();//("INSERT INTO HighScores(Score,ModeType) VALUES(@Score,@Mode);", con);
+            Cmd.Connection = con;
+            Cmd.CommandText = "INSERT INTO HighScores(Score,ModeType) VALUES(@Score,@Mode);";
+            Cmd.Parameters.AddWithValue("@Score", score);
+            Cmd.Parameters.AddWithValue("@Mode", gamemode);
+            Cmd.ExecuteNonQuery();
             }
-            catch (OleDbException ex)
-            {
-                Debug.WriteLine(ex.Message);
+        //    try
+          //  {
+
+                Debug.WriteLine("addedStuff" + score, gamemode);
+
+            //}
+            //catch (OleDbException ex)
+            //{
+              //  Debug.WriteLine(ex.Message);
                 //MessageBoxScreen message = new MessageBoxScreen("Error: Failed to add Data. \n{0}" + ex.Message, true);
                 //MessageBox.Show(ex.Message);
-            }
-            finally { con.Close(); }
+            //}
+            //finally { con.Close(); }
+                con.Close();
 
 
         }

@@ -41,7 +41,7 @@ namespace GradedUnit
         int score = 0;
 
         string gamemode = "CoOp";
-        int lives = 3; //sets initial lives to 3 todo change this back 
+        int lives = 1; //sets initial lives to 3 todo change this back 
         // new random number generator 
         Random random = new Random();
 
