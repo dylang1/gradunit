@@ -18,7 +18,7 @@ namespace GradedUnit
     class GameplayScreen : GameScreen
     {
         #region Variables
-
+        // manager that will use the content pipeline to load evertyhing 
         ContentManager content;
         // the font that the game will use 
         SpriteFont gameFont;
@@ -38,13 +38,19 @@ namespace GradedUnit
         Texture2D brickImage;
         // creates a new array of bricks 
         Bricks[,] bricks;
+        //creates a new databaseconnection 
         DbConn dbConn;
+        //holds the score for the game
         int score = 0;
+        //holds the userinput got enterring highscores 
         string userinput;
+        
+        //holds the gamemode for the database to right to 
         string gamemode = "CoOp";
-        int lives = 1; //sets initial lives to 3 todo change this back 
+        int lives = 2; //sets initial lives to 3 
         // new random number generator 
         Random random = new Random();
+        //checks if the writing to database has occured 
         bool isWritten = false; 
 
 
@@ -75,8 +81,8 @@ namespace GradedUnit
             ScreenBoundary = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
-            dbConn = new DbConn();
-            dbConn.loadDb(gamemode);
+            dbConn = new DbConn();// loads teh database 
+            dbConn.loadDb(gamemode);//loads the database 
 
             gameFont = content.Load<SpriteFont>("quartz4");// loads the font which will be used throughout the game 
             Texture2D battexture = content.Load<Texture2D>("bat");// loads the texture of the batt 
@@ -85,7 +91,7 @@ namespace GradedUnit
             P1bat = new Bat(battexture, ScreenBoundary);//creats a new bat object called P1bat
             ball = new Ball(balltexture, ScreenBoundary);//creates a new ball object 
             P2bat = new Bat(battexture, ScreenBoundary);//creates a new object called p2bat
-            StartGame();
+            StartGame();//starts the game 
             
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
@@ -95,12 +101,12 @@ namespace GradedUnit
 
         private void StartGame()
         {
-            isWritten = false;
+            isWritten = false; // sets if the written method has been done to false 
             P1bat.startPosP1(); //sets the starting position of the bat
-            P2bat.startPosP2();
+            P2bat.startPosP2();// sets the starting position of the bat 
             ball.StartPosBall(P1bat.GetBoundary());//sets starting pos of ball 
 
-            bricks = new Bricks[bricksWidth, bricksHeight];
+            bricks = new Bricks[bricksWidth, bricksHeight];//creates a new array of width and high changes colour depending on which row the bricks are in 
 
             for (int i = 0; i < bricksHeight; i++)
             {
@@ -126,7 +132,7 @@ namespace GradedUnit
                 }
                 for (int x =0; x<bricksWidth; x++)
                 {
-                    bricks[x, i] = new Bricks(brickImage, new Rectangle(x * brickImage.Width, i * brickImage.Height +300, brickImage.Width, brickImage.Height), colour);
+                    bricks[x, i] = new Bricks(brickImage, new Rectangle(x * brickImage.Width, i * brickImage.Height +300, brickImage.Width, brickImage.Height), colour); // creates rectangle ofr each brick created 
                 }
             }
         }
@@ -167,6 +173,7 @@ namespace GradedUnit
             {
                 if (lives != 0)
                 {
+                    //moves tbe ball position 
                     ball.UpdatePos();
                     // checks the collision for each the bricks 
                     foreach (Bricks brick in bricks)
@@ -176,30 +183,42 @@ namespace GradedUnit
                     //checsk if the ball hits the bat 
                     ball.BatCollision(P1bat.GetBoundary(),true);
                     ball.BatCollision(P2bat.GetBoundary(),false);
-                    //checsk fi the ball leaves the bottom of the screen if so remove lives by one 
+                    //checsk fi the ball leaves the bottom of the screen if so remove lives by one and set it back to ontop of the bat 
                     if (ball.BottomCheck())
                     {
                         lives -= 1;
                         ball.StartPosBall(P1bat.GetBoundary());
 
                     }
-                    //checks if the ball leave the top of the screen if so remove lives by one 
+                    //checks if the ball leave the top of the screen if so remove lives by one and set it back to ontop of the bat 
                     if (ball.TopCheck())
                     {
                         lives -= 1;
                         ball.StartPosBall(P1bat.GetBoundary());
                     }
                 }
+                //checks if the lives are = 0 
                 if (lives == 0)
                 {
+                    //checks if this method has been run before 
                     if (!isWritten)
                     {
+                        //sets the inputscore to the score of the game 
                         int inputscore = (int)score;
+                        //moves the ball back ontop of the bat 
                         ball.StartPosBall(P1bat.GetBoundary());
+                        //asks the user for there name 
                         userinput = Microsoft.VisualBasic.Interaction.InputBox("Name", "Please Enter Your Name", "AAAAA").ToString();
+                        // max length of 10 characters 
+                        int maxstrlength = 10;
+                        // if the user inputs more than 10 chars it will cut off any chars moe than 10 
+                        if (userinput.Length > maxstrlength)
+                        { userinput = userinput.Substring(0, maxstrlength); }
+                        //addsthe name to the player database 
                         dbConn.addNametoDb(userinput);
+                        //adds the gamemode and score to the highscores table 
                         dbConn.addtoDB(gamemode,inputscore);
-                        
+                        //sets that this method has been run before 
                         isWritten = true; 
 
                     }
@@ -233,22 +252,33 @@ namespace GradedUnit
             else
             {
                 // if the key for p1 to move right is pressed move player one right
-                if(input.IsP1Right(/*ControllingPlayer*/) == true)
+                if (input.IsP1Right(/*ControllingPlayer*/) == true)
                 {
                     P1bat.MoveBatRight();
                 }
                 // if the key for player 1 to move left is pressed move player one left 
-                if(input.IsP1Left(/*ControllingPlayer*/) == true)
+                if (input.IsP1Left(/*ControllingPlayer*/) == true)
                 {
                     P1bat.MoveBatLeft();
                 }
-
+                // if the key for player 1 to move left is pressed move player two left 
                 if (input.IsP2left())
                     P2bat.MoveBatLeft();
+                // if the key for player 2 to move left is pressed move player two right 
                 if (input.IsP2Right())
                     P2bat.MoveBatRight();
+                // if the key for player 1 to start the ge game and the ball motion is = 0 then start he motion of the ball  
                 if (input.IsP1Start())
+                {
+                    if(ball.getMotion() == new Vector2(0,0) )
                     ball.StartMotion();
+                }
+                // if the key for player 2  to start the ge game and the ball motion is = 0 then start he motion of the ball 
+                if (input.IsP2Start())
+                {
+                    if (ball.getMotion() == new Vector2(0, 0))
+                        ball.StartMotion();
+                }
             }
         }
 
@@ -258,18 +288,21 @@ namespace GradedUnit
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
-            // This game has a blue background. Why? Because!
+            //draws a white background 
             ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
                                                Color.White, 0, 0);
 
-            // Our player and enemy are both actually just text strings.
+            
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             spriteBatch.Begin();
+            //draw each brick 
             foreach (Bricks brick in bricks)
                 brick.Draw(spriteBatch);
+            //draw the lives and score at the top of the screen 
             spriteBatch.DrawString(gameFont,"Lives: " + lives.ToString(),new Vector2(10,0),Color.Blue);
             spriteBatch.DrawString(gameFont,"Score: " + score.ToString(),new Vector2(170,0),Color.Blue);
+            // if the lives are =0 then draw gamemover and tell teh user their score 
             if (lives == 0)
             {
                 spriteBatch.DrawString(gameFont, "GAME OVER", new Vector2(255, 300), Color.HotPink, MathHelper.ToRadians(0), new Vector2(0, 0), 3.5f, SpriteEffects.None, 0);
@@ -277,6 +310,7 @@ namespace GradedUnit
 
 
             }
+            //draw the bats and ball 
             P1bat.Draw(spriteBatch);
             P2bat.Draw(spriteBatch);
             ball.Draw(spriteBatch);

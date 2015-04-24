@@ -9,16 +9,16 @@ using Microsoft.Xna.Framework.Content;
 
 namespace GradedUnit
 {
-    class HighScoreScreen : MenuScreen 
+    class HighScoreScreen : MenuScreen
     {
+        #region Variables 
+        DbConn dbConn; // database connection 
+        MenuEntry dbSelectMenuEntry;///menue entry 
+        int rowsrodraw = 0;// how many rows to draw 
+        int maxrows = 20;// the max rows that will be shown 
 
-        DbConn dbConn;
-        MenuEntry dbSelectMenuEntry;
-        int rowsrodraw = 0;
-        int maxrows = 20;
-
-        string[] dboptions = { "CoOp", "Comp " };
-        
+        string[] dboptions = { "CoOp", "Comp " };// the options for the highsdcores 
+        #endregion 
 
         enum Options
         {
@@ -30,21 +30,22 @@ namespace GradedUnit
         {
             string coopString = "CoOp";
             dbSelectMenuEntry = new MenuEntry(string.Empty);
+            //creates a new database connection 
             dbConn = new DbConn();
             SetMenuEntryText();
             dbSelectMenuEntry.Selected += DBSelect;
+            //ads a new menu entry which the user can toggle 
             MenuEntries.Add(dbSelectMenuEntry);
-            // cooop load 
+            // default laods the coop database 
             dbConn.loadDb(coopString);
-            ////CompLoad
-            //loadDb(compString);
-            //Draw();
+
         }
 
         void SetMenuEntryText()
         {
             dbSelectMenuEntry.Text = "Mode:" + currentOption;
         } 
+        //select which database to be loaded 
         void DBSelect(object sender, PlayerIndexEventArgs e)
         {
             currentOption++;
@@ -71,7 +72,7 @@ namespace GradedUnit
             SetMenuEntryText();
         }
         
-
+        //draws the data from the database on the screen 
         public override void Draw(GameTime gameTime)
         {
 
@@ -90,9 +91,5 @@ namespace GradedUnit
            }
             sBatch.End();
         }
-
-        
-     
-        //HighScoreScreen();
     }
 }

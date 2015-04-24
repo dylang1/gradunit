@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.OleDb;
+using System.Windows.Forms;
 using System.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,19 +15,20 @@ namespace GradedUnit
  class DbConn
     {
 
-        DataRowCollection dra;
-        int rowsrodraw = 0; 
-        DataSet ds = new DataSet();
-        OleDbConnection con = null;
-        string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D:/Documents/GitHub/gradunit/GradedUnit/HighScores.mdb";
-        OleDbTransaction trans = null;
-        int id;
+        DataRowCollection dra;//datarowcollection 
+        int rowsrodraw = 0; //howmanyrows to draw 
+        DataSet dataset = new DataSet();//creates a new dataset 
+        OleDbConnection con = null;//creates a new connection value 
+        string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D:/Documents/GitHub/gradunit/GradedUnit/HighScores.mdb";//the position as to where the database is on the filesystem 
+        OleDbTransaction trans = null;//sets the default value of the transaction ot be null 
+        int id;//integer for id 
 
+     // loads teh database 
         public void loadDb(string mode)
         {
-            ds.Clear();
+            dataset.Clear();//empties the dataset 
             string strSelect;
-            if (mode == "CoOp")
+            if (mode == "CoOp") // the gamemode is coop load the coop database if not load the comp database 
             {
                 strSelect = "SELECT Player.Name, HighScores.Score, HighScores.ModeType FROM (HighScores INNER JOIN Player ON HighScores.[user_id] = Player.ID AND HighScores.[user_id] = Player.ID) WHERE (HighScores.ModeType = 'CoOp') ORDER BY HighScores.Score DESC, Player.Name;";
             }
@@ -42,37 +44,37 @@ namespace GradedUnit
             }
             try
             {
-                OleDbCommand accessCmd = new OleDbCommand(strSelect, con);
-                OleDbDataAdapter dataAdapter = new OleDbDataAdapter(accessCmd);
+                OleDbCommand accessCmd = new OleDbCommand(strSelect, con);//SETS COMMAND TO USE THE QUERY UP ABOVE 
+                OleDbDataAdapter dataAdapter = new OleDbDataAdapter(accessCmd);//SETS THE DATAADAPTER TO USE THE COMMAND AND CONNECTION 
     
                 con.Open();
-                dataAdapter.Fill(ds, "HighScores");
+                dataAdapter.Fill(dataset, "HighScores");
             }
             catch (Exception ex)
             { MessageBoxScreen message = new MessageBoxScreen("Error: Failed to retrieve the data . \n{0}" + ex.Message, true); }
             finally { con.Close(); }
-            dra = ds.Tables["HighScores"].Rows;
-            rowsrodraw = 1;
-                      //todo add in for loop to increase [inc] to loop through each row upto say a max of x ammount 
+            dra = dataset.Tables["HighScores"].Rows;//maps teh valuse selected to the data collection 
+            rowsrodraw = 1;//sets rows to draw to one 
 
         }
+     //check how many rows are in the the database which is loaded 
         public int checkRows()
         {
             rowsrodraw = 1;
 
-            rowsrodraw = ds.Tables["HighScores"].Rows.Count;
+            rowsrodraw = dataset.Tables["HighScores"].Rows.Count;
 
             return rowsrodraw;
         }
-
+     //draws the rows on the database 
         public void Draw(SpriteFont font,SpriteBatch sBatch,int count )
         {
             foreach (DataRow dRow in dra)
             {
 
                 sBatch.DrawString(font, dRow[0].ToString(), new Vector2(5, 100 + count), Color.White);//draws the name 
-                sBatch.DrawString(font, dRow[1].ToString(), new Vector2(200, 100 + count), Color.White);//draws the score 
-                sBatch.DrawString(font, dRow[2].ToString(), new Vector2(300, 100 + count), Color.White);// draws the gamemode
+                sBatch.DrawString(font, dRow[1].ToString(), new Vector2(250, 100 + count), Color.White);//draws the score 
+                sBatch.DrawString(font, dRow[2].ToString(), new Vector2(350, 100 + count), Color.White);// draws the gamemode
                 count += 50;
                // sBatch.End();
             }
@@ -81,16 +83,17 @@ namespace GradedUnit
         {
 
         }
+     //adds the value game mode and score to the highscores database 
         public void addtoDB(string gamemode,int score)
         {
             try
             {
                 con = new OleDbConnection(connectionString);
-                con.Open();
+                con.Open(); // open connection 
             }
             catch (Exception ex)
             {
-               // MessageBoxScreen message = new MessageBoxScreen("Error: Failed to create a database connection. \n{0}" + ex.Message, true);
+               MessageBox.Show(ex.ToString());
                 return;
             }
 
@@ -100,36 +103,26 @@ namespace GradedUnit
                    
                     Cmd.Connection = con;
                    Cmd.Transaction = trans;
-
-
-                    Debug.WriteLine(id.GetType());
-                   Cmd.CommandText = "INSERT INTO HighScores(Score,ModeType,user_id) VALUES(@Score,@Mode,@id);";//,@IDENTITY);";
-                   Debug.WriteLine(id.GetType());   
-                   Cmd.Parameters.AddWithValue("@Score", score);
-                  Cmd.Parameters.AddWithValue("@Mode", gamemode);
-                  Cmd.Parameters.AddWithValue("@id", id);
+                   try {
+                       Debug.WriteLine(id.GetType());
+                   Cmd.CommandText = "INSERT INTO HighScores(Score,ModeType,user_id) VALUES(@Score,@Mode,@id);";//SQL SELECT QYERY 
+                   Cmd.Parameters.AddWithValue("@Score", score);//VALUES ADDED 
+                  Cmd.Parameters.AddWithValue("@Mode", gamemode);//VALUES ADDED 
+                  Cmd.Parameters.AddWithValue("@id", id);//VALUES ADDED 
                   Debug.WriteLine(id);
-                // Cmd.Parameters.AddWithValue("@Identity", id);
-                   Cmd.ExecuteNonQuery();
-                   trans.Commit();
-                    //Debug.WriteLine()
-        //    try
-          //  {
+                   Cmd.ExecuteNonQuery();//EXECUTE COMMAND 
+                   trans.Commit();//COMMIT 
+                   }
+                    catch(Exception ex)
+                   {
+                        MessageBox.Show(ex.ToString());
+                   }
 
-                Debug.WriteLine("addedStuff" + score, gamemode);
-
-            //}
-            //catch (OleDbException ex)
-            //{
-              //  Debug.WriteLine(ex.Message);
-                //MessageBoxScreen message = new MessageBoxScreen("Error: Failed to add Data. \n{0}" + ex.Message, true);
-                //MessageBox.Show(ex.Message);
-            //}
-            //finally { con.Close(); }
                 con.Close();
 
 
         }
+     //adds the value name to the player database 
         public void addNametoDb(string Name)
         {
             try
@@ -142,34 +135,25 @@ namespace GradedUnit
                 // MessageBoxScreen message = new MessageBoxScreen("Error: Failed to create a database connection. \n{0}" + ex.Message, true);
                 return;
             }
-            using (con)
+            try
             {
 
-
                 OleDbCommand Cmd = new OleDbCommand();//("INSERT INTO HighScores(Score,ModeType) VALUES(@Score,@Mode);", con);
-                Cmd.Connection = con;
-                trans = con.BeginTransaction();
+                Cmd.Connection = con;//CONNECTION STRING 
+                trans = con.BeginTransaction();//STARTS THE TRANSACTION 
                 Cmd.Transaction = trans;
-                Cmd.CommandText = "INSERT INTO Player(Name) VALUES(@Name);";
-                Cmd.Parameters.AddWithValue("@Name", Name);
-                Cmd.ExecuteNonQuery();
-                Cmd.CommandText = "SELECT @@IDENTITY;";
-                id = (int)Cmd.ExecuteScalar();
-                trans.Commit();
+                Cmd.CommandText = "INSERT INTO Player(Name) VALUES(@Name);";//SQL QUERY 
+                Cmd.Parameters.AddWithValue("@Name", Name);//VALUES USED 
+                Cmd.ExecuteNonQuery();//START THE QUERY 
+                Cmd.CommandText = "SELECT @@IDENTITY;";//GETTHE AUTOGENNED ID OFTHE PLAYER 
+                id = (int)Cmd.ExecuteScalar();//SET IT TO ID 
+                trans.Commit();//COMMIT 
             }
-            //    try
-            //  {
-
-            Debug.WriteLine("addedStuff" + Name);
-
-            //}
-            //catch (OleDbException ex)
-            //{
-            //  Debug.WriteLine(ex.Message);
-            //MessageBoxScreen message = new MessageBoxScreen("Error: Failed to add Data. \n{0}" + ex.Message, true);
-            //MessageBox.Show(ex.Message);
-            //}
-            //finally { con.Close(); }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
             con.Close();
         }
     }

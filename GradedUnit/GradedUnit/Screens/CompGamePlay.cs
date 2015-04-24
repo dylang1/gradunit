@@ -79,8 +79,8 @@ namespace GradedUnit
             ScreenBoundary = new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
-            dbConn = new DbConn();
-            dbConn.loadDb(gamemode);
+            dbConn = new DbConn();//CREATES THE DATABASSE CONNECTION OBJECT 
+            dbConn.loadDb(gamemode);//LOADS TEH DATABASAE FOR THIS MODE 
 
             gameFont = content.Load<SpriteFont>("quartz4");// loads the font which will be used throughout the game 
             Texture2D battexture = content.Load<Texture2D>("bat");// loads the texture of the batt 
@@ -89,21 +89,21 @@ namespace GradedUnit
             P1bat = new Bat(battexture, ScreenBoundary);//creats a new bat object called P1bat
             ball = new Ball(balltexture, ScreenBoundary);//creates a new ball object 
             P2bat = new Bat(battexture, ScreenBoundary);//creates a new object called p2bat
-            StartGame();
+            StartGame();//STARTS THE GAME 
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
             // it should not try to catch up.
             ScreenManager.Game.ResetElapsedTime();
         }
-
+        //FUNCTGION TO START THE GAME 
         private void StartGame()
         {
             isWritten = false;
             P1bat.startPosP1(); //sets the starting position of the bat
             P2bat.startPosP2();
             ball.StartPosBall(P1bat.GetBoundary());//sets starting pos of ball 
-
+            //CREATES THE BRICKS AND SETS THE COLOUR DEPENDING ON WHICH ROW THEY ARE 
             bricks = new Bricks[bricksWidth, bricksHeight];
 
             for (int i = 0; i < bricksHeight; i++)
@@ -172,7 +172,7 @@ namespace GradedUnit
                 if (p1lives != 0)
                 {
                     ball.UpdatePos();
-                    // checks the collision for each the bricks 
+                    // checks the collision for each the bricks AND WHICH PLAYER TO AWWARD SCORE TO 
                     foreach (Bricks brick in bricks)
                     {
                         if (lastcollp1)
@@ -180,10 +180,10 @@ namespace GradedUnit
                         else
                             p2score += brick.CollisionCheck(ball);
                     }
-                    //checsk if the ball hits the bat 
+                    //checsk if the ball hits which bat 
                    lastcollp1= ball.BatCollision(P1bat.GetBoundary(), true,lastcollp1);
                     lastcollp1 = ball.BatCollision(P2bat.GetBoundary(), false,lastcollp1);
-                    //checsk fi the ball leaves the bottom of the screen if so remove lives by one 
+                    //checsk fi the ball leaves the bottom of the screen if so remove player one lives lives by one awward player 2 score
                     if (ball.BottomCheck())
                     {
                         p1lives -= 1;
@@ -192,7 +192,7 @@ namespace GradedUnit
                         p2score += 20;
 
                     }
-                    //checks if the ball leave the top of the screen if so remove lives by one 
+                    //checks if the ball leave the top of the screen if so remove player 2 lives by one and awward player 1 score 
                     if (ball.TopCheck())
                     {
                         p2lives -= 1;
@@ -201,19 +201,28 @@ namespace GradedUnit
                         p1score += 20;
                     }
                 }
-                if (p1lives == 0 || p2lives ==0)
+                if (p1lives == 0 || p2lives ==0)//checks if gameover 
                 {
-                    if (p1lives> p2score)
+                    //if player 1 > is bigger the player 2 score then p1 wins nad write that to database 
+                    if (p1score> p2score)
                     {
                         inputscore = (int)p1score;
                     }
                     else {  inputscore = (int)p2score; }
-                    if (!isWritten)
+                    if (!isWritten)//chesk if this method has been run before 
                     {
-                        
+                        //resets pos of ball 
                         ball.StartPosBall(P1bat.GetBoundary());
+                        //gets the name of the user 
                         userinput = Microsoft.VisualBasic.Interaction.InputBox("Name", "Please Enter Your Name", "AAAAA").ToString();
+                        // max length of 10 characters 
+                        int maxstrlength = 10;
+                        // if the user inputs more than 10 chars it will cut off any chars moe than 10 
+                        if (userinput.Length > maxstrlength)
+                        { userinput = userinput.Substring(0, maxstrlength); }
+                        //add tehs name ot the player table 
                         dbConn.addNametoDb(userinput);
+                        //ads the score and mode to the highscores table 
                         dbConn.addtoDB(gamemode, inputscore);
 
                         isWritten = true;
@@ -228,7 +237,6 @@ namespace GradedUnit
         /// Lets the game respond to player input. Unlike the Update method,
         /// this will only be called when the gameplay screen is active.
         /// 
-        /// TODO fix movement logic 
         /// </summary>
         public override void HandleInput(InputState input)
         {
@@ -258,13 +266,24 @@ namespace GradedUnit
                 {
                     P1bat.MoveBatLeft();
                 }
-
+                // if the key for player 1 to move left is pressed move player two left 
                 if (input.IsP2left())
                     P2bat.MoveBatLeft();
+                // if the key for player 2 to move left is pressed move player two right 
                 if (input.IsP2Right())
                     P2bat.MoveBatRight();
+                // if the key for player 1 to start the ge game and the ball motion is = 0 then start he motion of the ball  
                 if (input.IsP1Start())
-                    ball.StartMotion();
+                {
+                    if (ball.getMotion() == new Vector2(0, 0))
+                        ball.StartMotion();
+                }
+                // if the key for player 2  to start the ge game and the ball motion is = 0 then start he motion of the ball 
+                if (input.IsP2Start())
+                {
+                    if (ball.getMotion() == new Vector2(0, 0))
+                        ball.StartMotion();
+                }
             }
         }
 
@@ -282,18 +301,21 @@ namespace GradedUnit
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             spriteBatch.Begin();
+            //draws each brick 
             foreach (Bricks brick in bricks)
                 brick.Draw(spriteBatch);
+            //draw the players lives and scores at the top of the screen 
             spriteBatch.DrawString(gameFont, "Player 1 Lives: " + p1lives.ToString(), new Vector2(10, 0), Color.Blue);
             spriteBatch.DrawString(gameFont, "Player 1 Score: " + p1score.ToString(), new Vector2(350, 0), Color.Blue);
             spriteBatch.DrawString(gameFont, "Player 2 Lives: " + p2lives.ToString(), new Vector2(700, 0), Color.Pink);
             spriteBatch.DrawString(gameFont, "Player 2 Score: " + p2score.ToString(), new Vector2(1050, 0), Color.Pink);
-            if (p1lives == 0)
+            //checks which player has one the game if its p2 display p2 score and that p2 has one 
+            if (p1lives == 0 || p2lives == 0 && p2score > p1score)
             {
                 spriteBatch.DrawString(gameFont, "GAME OVER P2 Wins", new Vector2(255, 300), Color.HotPink, MathHelper.ToRadians(0), new Vector2(0, 0), 3.5f, SpriteEffects.None, 0);
                 spriteBatch.DrawString(gameFont, "Score: " + p2score, new Vector2(255, 400), Color.HotPink, MathHelper.ToRadians(0), new Vector2(0, 0), 3.5f, SpriteEffects.None, 0);
             }
-            if(p2lives == 0 )
+            if(p1lives == 0||p2lives == 0 && p1score>p2score )
             {
                 spriteBatch.DrawString(gameFont, "GAME OVER P1 Wins", new Vector2(255, 300), Color.HotPink, MathHelper.ToRadians(0), new Vector2(0, 0), 3.5f, SpriteEffects.None, 0);
                 spriteBatch.DrawString(gameFont, "Score: " + p1score, new Vector2(255, 400), Color.HotPink, MathHelper.ToRadians(0), new Vector2(0, 0), 3.5f, SpriteEffects.None, 0);

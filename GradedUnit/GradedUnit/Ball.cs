@@ -19,23 +19,13 @@ namespace GradedUnit
         float speed = 1f; // holds the speed of the ball 
         Texture2D texture; // holds the texture of the ball 
         Rectangle scrboundary;//holds the screenboundayy used to determine collisions and stuff 
-        Rectangle boundary;
-        const float initialSpeed = 5f;
-        Random random = new Random();
-        bool collision;
-        #region Getters Setters
-        // getter for texture 
-        public Texture2D getTexture()
-        {
-            return texture;
-        }
-        // getter for position
-        public Vector2 getPosition()
-        {
-            return pos;
-        }
-        // getter for origin
-        #endregion
+        Rectangle boundary;//holds the boundary of the ball 
+        const float initialSpeed = 5f;// sets the initial speed of the ball 
+        Random random = new Random();// new random number generetaor 
+        bool collision; // holds if the ball has collided or not 
+        #region Methods 
+
+
         //constructor to create a new instance of ball 
         public Ball(Texture2D texture, Rectangle scrboundary)
         {
@@ -44,6 +34,7 @@ namespace GradedUnit
             this.scrboundary = scrboundary;
         }
 
+        //method to create a boundary round the ball 
         public Rectangle Boundary
         {
             get
@@ -53,6 +44,8 @@ namespace GradedUnit
                 return boundary;
             }
         }
+
+        //method to update the position of the ball 
         public void UpdatePos()
         {
             collision = false;
@@ -115,6 +108,8 @@ namespace GradedUnit
             return lastcollp1;
             
         }
+
+        //method to check collision 
         public void BatCollision(Rectangle batloc, bool isP1)
         {
             Rectangle ballloc = new Rectangle((int)pos.X, (int)pos.Y, texture.Width, texture.Height);
@@ -131,7 +126,13 @@ namespace GradedUnit
             }
 
         }
+        // method to return the motion of the ball 
+        public Vector2 getMotion()
+        {
+            return this.motion;
+        }
 
+        //method to deflect the ball 
         public void Deflection(Bricks brick)
         {
 
@@ -142,6 +143,7 @@ namespace GradedUnit
             }
             
         }
+        //method to set the starting position of the ball 
         public void StartPosBall(Rectangle batPosition)
         {
             motion = new Vector2(0, 0);
@@ -149,14 +151,18 @@ namespace GradedUnit
             pos.Y = batPosition.Y - texture.Height;
             pos.X = batPosition.X + (batPosition.Width - texture.Width) / 2;
         }
+        //method to start the motion of the ball 
         public void StartMotion()
         {
             motion = new Vector2(random.Next(1, 5), -random.Next(1, 5));
             motion.Normalize();
         }
+
+        //method to draw the ball 
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(texture, pos, Color.Red);
+            spritebatch.Draw(texture, pos, Color.Crimson);
         }
+        #endregion
     }
 }
