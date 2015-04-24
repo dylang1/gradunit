@@ -97,13 +97,12 @@ namespace GradedUnit
             
             OleDbCommand Cmd = new OleDbCommand();//("INSERT INTO HighScores(Score,ModeType) VALUES(@Score,@Mode);", con);
             Cmd.Connection = con;
-            Cmd.CommandText = "INSERT INTO HighScores(Score,ModeType) VALUES(@Score,@Mode);";
+            Cmd.CommandText =  "BEGIN TRANSACTION  DECLARE @PlayerID int;INSERT INTO Player(Name) VALUES(@Name);SELECT @PlayerID = scope_identity();INSERT INTO HighScores(Score,ModeType,user id) VALUES(@Score,@Mode,@PlayerID) ;COMMIT;";
             Cmd.Parameters.AddWithValue("@Score", score);
             Cmd.Parameters.AddWithValue("@Mode", gamemode);
-            Cmd.ExecuteNonQuery();
-            Cmd.CommandText = "INSERT INTO Player(Name) VALUES(@Name);";
             Cmd.Parameters.AddWithValue("@Name", Name);
             Cmd.ExecuteNonQuery();
+             
 
             }
         //    try
