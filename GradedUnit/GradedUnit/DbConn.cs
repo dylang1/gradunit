@@ -20,6 +20,7 @@ namespace GradedUnit
         OleDbConnection con = null;
         string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D:/Documents/GitHub/gradunit/GradedUnit/HighScores.mdb";
         OleDbTransaction trans = null;
+        int id;
 
         public void loadDb(string mode)
         {
@@ -80,7 +81,7 @@ namespace GradedUnit
         {
 
         }
-        public void addtoDB(string gamemode,int score,string Name)
+        public void addtoDB(string gamemode,int score)
         {
             try
             {
@@ -92,32 +93,26 @@ namespace GradedUnit
                // MessageBoxScreen message = new MessageBoxScreen("Error: Failed to create a database connection. \n{0}" + ex.Message, true);
                 return;
             }
-            using(con)
-            {
-
 
                 OleDbCommand Cmd = new OleDbCommand();//("INSERT INTO HighScores(Score,ModeType) VALUES(@Score,@Mode);", con);
                 trans = con.BeginTransaction();
 
-                    int id;
+                   
                     Cmd.Connection = con;
-                    Cmd.Transaction = trans;
-                    Cmd.CommandText = "INSERT INTO Player(Name) VALUES(@Name);";
-                    Cmd.Parameters.AddWithValue("@Name", Name);
-                    Cmd.ExecuteNonQuery();
-                    Cmd.CommandText = "SELECT @@IDENTITY;";
-                    id = (int)Cmd.ExecuteScalar();
-                    Debug.WriteLine(id);
-                   Cmd.CommandText = "INSERT INTO HighScores(Score,ModeType,user_id) VALUES(@Score,@Mode,@IDENTITY);";//,@IDENTITY);";
-                        
-                   //Cmd.Parameters.AddWithValue("@Score",score);
-                  // Cmd.Parameters.AddWithValue("@Mode", gamemode);
-                  // Cmd.Parameters.AddWithValue("@IDENTITY", id);
-                  // Cmd.ExecuteNonQuery();
+                   Cmd.Transaction = trans;
+
+
+                    Debug.WriteLine(id.GetType());
+                   Cmd.CommandText = "INSERT INTO HighScores(Score,ModeType,user_id) VALUES(@Score,@Mode,@id);";//,@IDENTITY);";
+                   Debug.WriteLine(id.GetType());   
+                   Cmd.Parameters.AddWithValue("@Score", score);
+                  Cmd.Parameters.AddWithValue("@Mode", gamemode);
+                  Cmd.Parameters.AddWithValue("@id", id);
+                  Debug.WriteLine(id);
+                // Cmd.Parameters.AddWithValue("@Identity", id);
+                   Cmd.ExecuteNonQuery();
                    trans.Commit();
                     //Debug.WriteLine()
-
-            }
         //    try
           //  {
 
@@ -153,9 +148,14 @@ namespace GradedUnit
 
                 OleDbCommand Cmd = new OleDbCommand();//("INSERT INTO HighScores(Score,ModeType) VALUES(@Score,@Mode);", con);
                 Cmd.Connection = con;
-                Cmd.CommandText = "INSERT INTO Player(Name) VALUES(@Score);";
+                trans = con.BeginTransaction();
+                Cmd.Transaction = trans;
+                Cmd.CommandText = "INSERT INTO Player(Name) VALUES(@Name);";
                 Cmd.Parameters.AddWithValue("@Name", Name);
                 Cmd.ExecuteNonQuery();
+                Cmd.CommandText = "SELECT @@IDENTITY;";
+                id = (int)Cmd.ExecuteScalar();
+                trans.Commit();
             }
             //    try
             //  {
