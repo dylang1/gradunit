@@ -19,6 +19,7 @@ namespace GradedUnit
         DataSet ds = new DataSet();
         OleDbConnection con = null;
         string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D:/Documents/GitHub/gradunit/GradedUnit/HighScores.mdb";
+        OleDbTransaction trans = null;
 
         public void loadDb(string mode)
         {
@@ -26,9 +27,9 @@ namespace GradedUnit
             string strSelect;
             if (mode == "CoOp")
             {
-                strSelect = "SELECT Player.Name, HighScores.Score, HighScores.ModeType FROM (HighScores INNER JOIN Player ON HighScores.[user id] = Player.ID AND HighScores.[user id] = Player.ID) WHERE (HighScores.ModeType = 'CoOp') ORDER BY HighScores.Score DESC, Player.Name;";
+                strSelect = "SELECT Player.Name, HighScores.Score, HighScores.ModeType FROM (HighScores INNER JOIN Player ON HighScores.[user_id] = Player.ID AND HighScores.[user_id] = Player.ID) WHERE (HighScores.ModeType = 'CoOp') ORDER BY HighScores.Score DESC, Player.Name;";
             }
-            else { strSelect = "SELECT Player.Name, HighScores.Score, HighScores.ModeType FROM (HighScores INNER JOIN Player ON HighScores.[user id] = Player.ID AND HighScores.[user id] = Player.ID) WHERE (HighScores.ModeType = 'Comp') ORDER BY HighScores.Score DESC, Player.Name;"; }
+            else { strSelect = "SELECT Player.Name, HighScores.Score, HighScores.ModeType FROM (HighScores INNER JOIN Player ON HighScores.[user_id] = Player.ID AND HighScores.[user_id] = Player.ID) WHERE (HighScores.ModeType = 'Comp') ORDER BY HighScores.Score DESC, Player.Name;"; }
             try
             {
                 con = new OleDbConnection(connectionString);
@@ -79,7 +80,7 @@ namespace GradedUnit
         {
 
         }
-        public void addtoDB(string gamemode, int score,String Name)
+        public void addtoDB(string gamemode, int score,string Name)
         {
             try
             {
@@ -94,15 +95,28 @@ namespace GradedUnit
             using(con)
             {
 
-            
-            OleDbCommand Cmd = new OleDbCommand();//("INSERT INTO HighScores(Score,ModeType) VALUES(@Score,@Mode);", con);
-            Cmd.Connection = con;
-            Cmd.CommandText =  "BEGIN TRANSACTION  DECLARE @PlayerID int;INSERT INTO Player(Name) VALUES(@Name);SELECT @PlayerID = scope_identity();INSERT INTO HighScores(Score,ModeType,user id) VALUES(@Score,@Mode,@PlayerID) ;COMMIT;";
-            Cmd.Parameters.AddWithValue("@Score", score);
-            Cmd.Parameters.AddWithValue("@Mode", gamemode);
-            Cmd.Parameters.AddWithValue("@Name", Name);
-            Cmd.ExecuteNonQuery();
-             
+
+                OleDbCommand Cmd = new OleDbCommand();//("INSERT INTO HighScores(Score,ModeType) VALUES(@Score,@Mode);", con);
+                trans = con.BeginTransaction(IsolationLevel.ReadCommitted);
+                {
+
+                    int id;
+                    Cmd.Connection = con;
+                    Cmd.Transaction = trans;
+                    Cmd.CommandText = "INSERT INTO Player(Name) VALUES(@Name);";
+                    Cmd.Parameters.AddWithValue("@Name", Name);
+                    Cmd.ExecuteNonQuery();
+                    Cmd.CommandText = "SELECT @@IDENTITY;";
+                    id = (int)Cmd.ExecuteScalar();
+                    Debug.WriteLine(id);
+                   Cmd.CommandText = "INSERT INTO HighScores(Score,ModeType,user_id) VALUES(@Score,@Mode,@IDENTITY);";//,@IDENTITY);";
+  
+                   Cmd.Parameters.AddWithValue("@Score", (int)score);
+                    Cmd.Parameters.AddWithValue("@Mode", gamemode);
+                    Cmd.Parameters.AddWithValue("@IDENTITY", id);
+                    Cmd.ExecuteNonQuery();
+                    //Debug.WriteLine();
+                }
 
             }
         //    try
