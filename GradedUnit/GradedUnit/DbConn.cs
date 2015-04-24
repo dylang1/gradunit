@@ -97,8 +97,7 @@ namespace GradedUnit
 
 
                 OleDbCommand Cmd = new OleDbCommand();//("INSERT INTO HighScores(Score,ModeType) VALUES(@Score,@Mode);", con);
-                trans = con.BeginTransaction(IsolationLevel.ReadCommitted);
-                {
+                trans = con.BeginTransaction();
 
                     int id;
                     Cmd.Connection = con;
@@ -110,13 +109,13 @@ namespace GradedUnit
                     id = (int)Cmd.ExecuteScalar();
                     Debug.WriteLine(id);
                    Cmd.CommandText = "INSERT INTO HighScores(Score,ModeType,user_id) VALUES(@Score,@Mode,@IDENTITY);";//,@IDENTITY);";
-  
-                 //  Cmd.Parameters.AddWithValue("@Score",score);
-                  //  Cmd.Parameters.AddWithValue("@Mode", gamemode);
-                   // Cmd.Parameters.AddWithValue("@IDENTITY", id);
-                   // Cmd.ExecuteNonQuery();
-                    //Debug.WriteLine();
-                }
+                        
+                   //Cmd.Parameters.AddWithValue("@Score",score);
+                  // Cmd.Parameters.AddWithValue("@Mode", gamemode);
+                  // Cmd.Parameters.AddWithValue("@IDENTITY", id);
+                  // Cmd.ExecuteNonQuery();
+                   trans.Commit();
+                    //Debug.WriteLine()
 
             }
         //    try
