@@ -111,10 +111,10 @@ namespace GradedUnit
                     Debug.WriteLine(id);
                    Cmd.CommandText = "INSERT INTO HighScores(Score,ModeType,user_id) VALUES(@Score,@Mode,@IDENTITY);";//,@IDENTITY);";
   
-                   Cmd.Parameters.AddWithValue("@Score",score);
-                    Cmd.Parameters.AddWithValue("@Mode", gamemode);
-                    Cmd.Parameters.AddWithValue("@IDENTITY", id);
-                    Cmd.ExecuteNonQuery();
+                 //  Cmd.Parameters.AddWithValue("@Score",score);
+                  //  Cmd.Parameters.AddWithValue("@Mode", gamemode);
+                   // Cmd.Parameters.AddWithValue("@IDENTITY", id);
+                   // Cmd.ExecuteNonQuery();
                     //Debug.WriteLine();
                 }
 
