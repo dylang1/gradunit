@@ -80,7 +80,7 @@ namespace GradedUnit
         {
 
         }
-        public void addtoDB(string gamemode, int score,string Name)
+        public void addtoDB(string gamemode,int score,string Name)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace GradedUnit
                     Debug.WriteLine(id);
                    Cmd.CommandText = "INSERT INTO HighScores(Score,ModeType,user_id) VALUES(@Score,@Mode,@IDENTITY);";//,@IDENTITY);";
   
-                   Cmd.Parameters.AddWithValue("@Score", (int)score);
+                   Cmd.Parameters.AddWithValue("@Score",score);
                     Cmd.Parameters.AddWithValue("@Mode", gamemode);
                     Cmd.Parameters.AddWithValue("@IDENTITY", id);
                     Cmd.ExecuteNonQuery();
