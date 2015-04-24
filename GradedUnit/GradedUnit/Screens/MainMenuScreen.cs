@@ -28,21 +28,21 @@ namespace GradedUnit
             : base("Main Menu")
         {
             // Create our menu entries.
-            MenuEntry playGameMenuEntry = new MenuEntry("Play Game");
+            MenuEntry coopModeMenuEntry = new MenuEntry("Cooperative Mode");
             MenuEntry highScoreMenuEntry = new MenuEntry("High Scores");
-            MenuEntry optionsMenuEntry = new MenuEntry("Options");
+            MenuEntry compModeMenuEntry = new MenuEntry("Competitive Mode");
             MenuEntry exitMenuEntry = new MenuEntry("Exit");
 
             // Hook up menu event handlers.
-            playGameMenuEntry.Selected += PlayGameMenuEntrySelected;
+            coopModeMenuEntry.Selected += CoopMenuEntrySelected;
             highScoreMenuEntry.Selected += HighScoreMenuEntrySelected;
-            optionsMenuEntry.Selected += OptionsMenuEntrySelected;
+            compModeMenuEntry.Selected += CompMenuEntrySelected;
             exitMenuEntry.Selected += OnCancel;
 
             // Add entries to the menu.
-            MenuEntries.Add(playGameMenuEntry);
+            MenuEntries.Add(coopModeMenuEntry);
+            MenuEntries.Add(compModeMenuEntry);
             MenuEntries.Add(highScoreMenuEntry);
-            MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
         }
 
@@ -55,7 +55,7 @@ namespace GradedUnit
         /// <summary>
         /// Event handler for when the Play Game menu entry is selected.
         /// </summary>
-        void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        void CoopMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
             LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
                                new GameplayScreen());
@@ -65,9 +65,10 @@ namespace GradedUnit
         /// <summary>
         /// Event handler for when the Options menu entry is selected.
         /// </summary>
-        void OptionsMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        void CompMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            //ScreenManager.AddScreen(new OptionsMenuScreen(), e.PlayerIndex);
+            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
+                   new CompGamePlay());
         }
 
         void HighScoreMenuEntrySelected(object sender, PlayerIndexEventArgs e)

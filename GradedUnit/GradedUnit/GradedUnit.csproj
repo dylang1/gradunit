@@ -121,6 +121,7 @@
     <Compile Include="ScreenManager.cs" />
     <Compile Include="Screens\BackgroundScreen.cs" />
     <Compile Include="Bricks.cs" />
+    <Compile Include="Screens\CompGamePlay.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\HighScoreScreen.cs" />
     <Compile Include="Screens\LoadingScreen.cs" />

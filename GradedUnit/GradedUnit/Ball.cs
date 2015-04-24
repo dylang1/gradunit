@@ -95,20 +95,41 @@ namespace GradedUnit
         }
 
         //checks if the ball hist the bat 
-        public void BatCollision(Rectangle batloc,bool isP1)
+        public bool BatCollision(Rectangle batloc,bool isP1,bool lastcollp1)
         {
             Rectangle ballloc = new Rectangle((int)pos.X,(int)pos.Y,texture.Width,texture.Height);
             if (batloc.Intersects(ballloc) && isP1)
             {
                 pos.Y = batloc.Y - texture.Height;
                 motion.Y *= -1;
+                lastcollp1 = true;
+                return lastcollp1;
+            }
+            if (batloc.Intersects(ballloc) && !isP1)
+            {
+                //pos.Y = batloc.Y - texture.Height;
+                motion.Y *= -1;
+                lastcollp1 = false;
+                    return lastcollp1;
+            }
+            return lastcollp1;
+            
+        }
+        public void BatCollision(Rectangle batloc, bool isP1)
+        {
+            Rectangle ballloc = new Rectangle((int)pos.X, (int)pos.Y, texture.Width, texture.Height);
+            if (batloc.Intersects(ballloc) && isP1)
+            {
+                pos.Y = batloc.Y - texture.Height;
+                motion.Y *= -1;
+
             }
             if (batloc.Intersects(ballloc) && !isP1)
             {
                 //pos.Y = batloc.Y - texture.Height;
                 motion.Y *= -1;
             }
-            
+
         }
 
         public void Deflection(Bricks brick)
