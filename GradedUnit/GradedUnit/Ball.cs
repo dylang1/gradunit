@@ -144,11 +144,14 @@ namespace GradedUnit
             
         }
         //method to set the starting position of the ball 
-        public void StartPosBall(Rectangle batPosition)
+        public void StartPosBall(Rectangle batPosition,bool isp1)
         {
             motion = new Vector2(0, 0);
             speed = initialSpeed;
-            pos.Y = batPosition.Y - texture.Height;
+            if (isp1)
+                pos.Y = batPosition.Y - texture.Height;
+            else
+                pos.Y = batPosition.Y + texture.Height;
             pos.X = batPosition.X + (batPosition.Width - texture.Width) / 2;
         }
         //method to start the motion of the ball 

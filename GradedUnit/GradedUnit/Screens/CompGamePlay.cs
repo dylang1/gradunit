@@ -44,8 +44,8 @@ namespace GradedUnit
         int p2score = 0;
         string userinput;
         string gamemode = "Comp";
-        int p1lives = 1; //sets initial lives to 3 todo change this back 
-        int p2lives = 1;
+        int p1lives = 4; //sets initial lives to 4
+        int p2lives = 4;
         bool lastcollp1 = true;
         // new random number generator 
         Random random = new Random();
@@ -102,7 +102,7 @@ namespace GradedUnit
             isWritten = false;
             P1bat.startPosP1(); //sets the starting position of the bat
             P2bat.startPosP2();
-            ball.StartPosBall(P1bat.GetBoundary());//sets starting pos of ball 
+            ball.StartPosBall(P1bat.GetBoundary(),true);//sets starting pos of ball 
             //CREATES THE BRICKS AND SETS THE COLOUR DEPENDING ON WHICH ROW THEY ARE 
             bricks = new Bricks[bricksWidth, bricksHeight];
 
@@ -113,19 +113,19 @@ namespace GradedUnit
                 switch (i)
                 {
                     case 0:
-                        colour = Color.HotPink;
+                        colour = Color.Red;
                         break;
                     case 1:
-                        colour = Color.Purple;
-                        break;
-                    case 2:
                         colour = Color.MidnightBlue;
                         break;
+                    case 2:
+                        colour = Color.Green;
+                        break;
                     case 3:
-                        colour = Color.Goldenrod;
+                        colour = Color.Orange;
                         break;
                     case 4:
-                        colour = Color.Green;
+                        colour = Color.Pink;
                         break;
                 }
                 for (int x = 0; x < bricksWidth; x++)
@@ -187,7 +187,7 @@ namespace GradedUnit
                     if (ball.BottomCheck())
                     {
                         p1lives -= 1;
-                        ball.StartPosBall(P2bat.GetBoundary());
+                        ball.StartPosBall(P2bat.GetBoundary(),false);
                         lastcollp1 = false;
                         p2score += 20;
 
@@ -196,7 +196,7 @@ namespace GradedUnit
                     if (ball.TopCheck())
                     {
                         p2lives -= 1;
-                        ball.StartPosBall(P1bat.GetBoundary());
+                        ball.StartPosBall(P1bat.GetBoundary(),true);
                         lastcollp1 = true;
                         p1score += 20;
                     }
@@ -212,7 +212,7 @@ namespace GradedUnit
                     if (!isWritten)//chesk if this method has been run before 
                     {
                         //resets pos of ball 
-                        ball.StartPosBall(P1bat.GetBoundary());
+                        ball.StartPosBall(P1bat.GetBoundary(),true);
                         //gets the name of the user 
                         userinput = Microsoft.VisualBasic.Interaction.InputBox("Name", "Please Enter Your Name", "AAAAA").ToString();
                         // max length of 10 characters 
@@ -293,11 +293,11 @@ namespace GradedUnit
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
-            // This game has a blue background. Why? Because!
+            // draw the background as blakc 
             ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
-                                               Color.White, 0, 0);
+                                               Color.Black, 0, 0);
 
-            // Our player and enemy are both actually just text strings.
+           
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             spriteBatch.Begin();
@@ -320,8 +320,9 @@ namespace GradedUnit
                 spriteBatch.DrawString(gameFont, "GAME OVER P1 Wins", new Vector2(255, 300), Color.HotPink, MathHelper.ToRadians(0), new Vector2(0, 0), 3.5f, SpriteEffects.None, 0);
                 spriteBatch.DrawString(gameFont, "Score: " + p1score, new Vector2(255, 400), Color.HotPink, MathHelper.ToRadians(0), new Vector2(0, 0), 3.5f, SpriteEffects.None, 0);
             }
-            P1bat.Draw(spriteBatch);
-            P2bat.Draw(spriteBatch);
+            //draw the bats and ball 
+            P1bat.Draw(spriteBatch, Color.Red);
+            P2bat.Draw(spriteBatch, Color.Blue);
             ball.Draw(spriteBatch);
 
             spriteBatch.End();

@@ -47,7 +47,7 @@ namespace GradedUnit
         
         //holds the gamemode for the database to right to 
         string gamemode = "CoOp";
-        int lives = 2; //sets initial lives to 3 
+        int lives = 4; //sets initial lives to 4
         // new random number generator 
         Random random = new Random();
         //checks if the writing to database has occured 
@@ -104,7 +104,7 @@ namespace GradedUnit
             isWritten = false; // sets if the written method has been done to false 
             P1bat.startPosP1(); //sets the starting position of the bat
             P2bat.startPosP2();// sets the starting position of the bat 
-            ball.StartPosBall(P1bat.GetBoundary());//sets starting pos of ball 
+            ball.StartPosBall(P1bat.GetBoundary(),true);//sets starting pos of ball 
 
             bricks = new Bricks[bricksWidth, bricksHeight];//creates a new array of width and high changes colour depending on which row the bricks are in 
 
@@ -118,13 +118,13 @@ namespace GradedUnit
                         colour = Color.HotPink;
                         break;
                     case 1:
-                        colour = Color.Purple;
+                        colour = Color.Red;
                         break;
                     case 2:
                         colour = Color.MidnightBlue;
                         break;
                     case 3:
-                        colour = Color.Goldenrod;
+                        colour = Color.Orange;
                         break;
                     case 4:
                         colour = Color.Green;
@@ -187,14 +187,14 @@ namespace GradedUnit
                     if (ball.BottomCheck())
                     {
                         lives -= 1;
-                        ball.StartPosBall(P1bat.GetBoundary());
+                        ball.StartPosBall(P1bat.GetBoundary(),true);
 
                     }
                     //checks if the ball leave the top of the screen if so remove lives by one and set it back to ontop of the bat 
                     if (ball.TopCheck())
                     {
                         lives -= 1;
-                        ball.StartPosBall(P1bat.GetBoundary());
+                        ball.StartPosBall(P1bat.GetBoundary(),true);
                     }
                 }
                 //checks if the lives are = 0 
@@ -206,7 +206,7 @@ namespace GradedUnit
                         //sets the inputscore to the score of the game 
                         int inputscore = (int)score;
                         //moves the ball back ontop of the bat 
-                        ball.StartPosBall(P1bat.GetBoundary());
+                        ball.StartPosBall(P1bat.GetBoundary(),true);
                         //asks the user for there name 
                         userinput = Microsoft.VisualBasic.Interaction.InputBox("Name", "Please Enter Your Name", "AAAAA").ToString();
                         // max length of 10 characters 
@@ -290,7 +290,7 @@ namespace GradedUnit
         {
             //draws a white background 
             ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,
-                                               Color.White, 0, 0);
+                                               Color.Black, 0, 0);
 
             
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
@@ -311,8 +311,8 @@ namespace GradedUnit
 
             }
             //draw the bats and ball 
-            P1bat.Draw(spriteBatch);
-            P2bat.Draw(spriteBatch);
+            P1bat.Draw(spriteBatch,Color.Red);
+            P2bat.Draw(spriteBatch,Color.Blue);
             ball.Draw(spriteBatch);
 
             spriteBatch.End();

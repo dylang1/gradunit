@@ -66,7 +66,7 @@ namespace GradedUnit
             return new Rectangle((int)pos.X, (int)pos.Y, texture.Width, texture.Height);
         }
 
-        //function to create the startgin position of player1 
+        //function to create the startgin position of players 
         public void startPosP1()
         {
             pos.X = (scrBoundary.Width - texture.Width) / 2;// sets hte position to the midle of the screen 
@@ -79,9 +79,9 @@ namespace GradedUnit
             pos.Y = (40); // sets the position tp just above the top of the screen 
         }
         //function to draw the bat 
-        public void Draw(SpriteBatch spritebatch)
+        public void Draw(SpriteBatch spritebatch,Color color)
         {
-            spritebatch.Draw(texture, pos, Color.Red);
+            spritebatch.Draw(texture, pos, color);
         }
     }
 }
