@@ -55,7 +55,7 @@ namespace GradedUnit
         public MessageBoxScreen(string message, bool includeUsageText)
         {
             const string usageText = "\nSpace, Enter = ok" +
-                                     "\n, Esc = cancel"; 
+                                     "\nEsc = cancel"; 
             
             if (includeUsageText)
                 this.message = message + usageText;

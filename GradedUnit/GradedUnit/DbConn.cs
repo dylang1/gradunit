@@ -23,7 +23,7 @@ namespace GradedUnit
         OleDbTransaction trans = null;//sets the default value of the transaction ot be null 
         int id;//integer for id 
 
-     // loads teh database 
+     // loads the database 
         public void loadDb(string mode)
         {
             dataset.Clear();//empties the dataset 
@@ -79,6 +79,7 @@ namespace GradedUnit
                // sBatch.End();
             }
         }
+     //constructor
         public DbConn()
         {
 
@@ -132,7 +133,7 @@ namespace GradedUnit
             }
             catch (Exception ex)
             {
-                // MessageBoxScreen message = new MessageBoxScreen("Error: Failed to create a database connection. \n{0}" + ex.Message, true);
+                MessageBox.Show(ex.ToString());
                 return;
             }
             try

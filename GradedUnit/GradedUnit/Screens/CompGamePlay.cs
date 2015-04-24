@@ -33,22 +33,30 @@ namespace GradedUnit
         int bricksWidth = 15;
         // how many bricks high will be displayed 
         int bricksHeight = 5;
-        TextBox textBox;
         // texture for the bricks 
         Texture2D brickImage;
         // creates a new array of bricks 
         Bricks[,] bricks;
+
+        //inputscore to insert into db 
         int inputscore = 0;
+        // holds the datbase constructo 
         DbConn dbConn;
+        //player one score
         int p1score = 0;
+        // player 2 score
         int p2score = 0;
+        //string for the user input which will be added to the db 
         string userinput;
+        // gamemode string 
         string gamemode = "Comp";
         int p1lives = 4; //sets initial lives to 4
-        int p2lives = 4;
+        int p2lives = 4;//sets intial lives to 5 
+        //holds if the last position is with player one 
         bool lastcollp1 = true;
         // new random number generator 
         Random random = new Random();
+        //holds if the db has been written 
         bool isWritten = false;
 
 

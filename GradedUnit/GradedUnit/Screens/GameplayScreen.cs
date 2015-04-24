@@ -33,7 +33,6 @@ namespace GradedUnit
         int bricksWidth = 15;
         // how many bricks high will be displayed 
         int bricksHeight = 5;
-        TextBox textBox;
         // texture for the bricks 
         Texture2D brickImage;
         // creates a new array of bricks 
@@ -44,7 +43,6 @@ namespace GradedUnit
         int score = 0;
         //holds the userinput got enterring highscores 
         string userinput;
-        
         //holds the gamemode for the database to right to 
         string gamemode = "CoOp";
         int lives = 4; //sets initial lives to 4

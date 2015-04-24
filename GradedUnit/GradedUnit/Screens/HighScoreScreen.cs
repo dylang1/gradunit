@@ -40,7 +40,7 @@ namespace GradedUnit
             dbConn.loadDb(coopString);
 
         }
-
+        //setst the text of the menu options
         void SetMenuEntryText()
         {
             dbSelectMenuEntry.Text = "Mode:" + currentOption;
