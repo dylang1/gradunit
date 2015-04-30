@@ -19,7 +19,7 @@ namespace GradedUnit
         int rowsrodraw = 0; //howmanyrows to draw 
         DataSet dataset = new DataSet();//creates a new dataset 
         OleDbConnection con = null;//creates a new connection value 
-        string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D:/Documents/GitHub/gradunit/GradedUnit/HighScores.mdb";//the position as to where the database is on the filesystem 
+        string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=./HighScores.mdb";//the position as to where the database is on the filesystem 
         OleDbTransaction trans = null;//sets the default value of the transaction ot be null 
         int id;//integer for id 
 
@@ -39,7 +39,7 @@ namespace GradedUnit
             }
             catch (Exception ex)
             {
-                MessageBoxScreen message = new MessageBoxScreen("Error: Failed to create a database connection. \n{0}" + ex.Message, true);
+                MessageBox.Show("Error: Failed to create a database connection. \n{0}" + ex.Message);
                 return; 
             }
             try
@@ -49,11 +49,12 @@ namespace GradedUnit
     
                 con.Open();
                 dataAdapter.Fill(dataset, "HighScores");
+                dra = dataset.Tables["HighScores"].Rows;//maps teh valuse selected to the data collection 
             }
             catch (Exception ex)
-            { MessageBoxScreen message = new MessageBoxScreen("Error: Failed to retrieve the data . \n{0}" + ex.Message, true); }
+            { MessageBox.Show("Error: Failed to retrieve the data . \n{0}" + ex.Message); }
             finally { con.Close(); }
-            dra = dataset.Tables["HighScores"].Rows;//maps teh valuse selected to the data collection 
+           // dra = dataset.Tables["HighScores"].Rows;//maps teh valuse selected to the data collection 
             rowsrodraw = 1;//sets rows to draw to one 
 
         }

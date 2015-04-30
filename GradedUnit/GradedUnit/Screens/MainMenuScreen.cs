@@ -76,11 +76,10 @@ namespace GradedUnit
             ScreenManager.AddScreen(new HighScoreScreen(), e.PlayerIndex);
         }
         /// <summary>
-        /// When the user cancels the main menu, ask if they want to exit the sample.
-        /// </summary>
+        /// When the user cancels the main menu, ask if they want to exit
         protected override void OnCancel(PlayerIndex playerIndex)
         {
-            const string message = "Are you sure you want to exit this sample?";
+            const string message = "Are you sure you want to exit?";
 
             MessageBoxScreen confirmExitMessageBox = new MessageBoxScreen(message);
 

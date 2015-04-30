@@ -8,7 +8,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="GradedUnit.Bat" Collapsed="true">
-    <Position X="3.75" Y="0.75" Width="1.5" />
+    <Position X="4.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAgAAAAAAAMAEAAAAAwADAJAAAQAAAAA=</HashCode>
       <FileName>Bat.cs</FileName>
@@ -24,7 +24,8 @@
   <Class Name="GradedUnit.HighScoreScreen">
     <Position X="2.75" Y="3.5" Width="1.5" />
     <Compartments>
-      <Compartment Name="Nested Types" Collapsed="false" />
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <NestedTypes>
       <Enum Name="GradedUnit.HighScoreScreen.Options" Collapsed="true">
@@ -62,14 +63,14 @@
   <Class Name="GradedUnit.CompGamePlay" Collapsed="true">
     <Position X="13.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQSkCCIACQAAgISAACAAAYiAQMAEAAAAQQQIAEAAAQ=</HashCode>
+      <HashCode>AAQSkCCIACQAAgIQAACAAAYiAQMAEAAAAQQQIAEAAAQ=</HashCode>
       <FileName>Screens\CompGamePlay.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GradedUnit.GameplayScreen" Collapsed="true">
     <Position X="18.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQSkCCAACAAAgASAACIAAYgAQMAAAAAAQQQIAEAAAQ=</HashCode>
+      <HashCode>AAQSkCCAACAAAgAQAACIAAYgAQMAAAAAAQQQIAEAAAQ=</HashCode>
       <FileName>Screens\GameplayScreen.cs</FileName>
     </TypeIdentifier>
   </Class>
